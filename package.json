@@ -11,6 +11,8 @@
    "dependencies": {
       "@types/cookie-parser": "^1.4.2",
       "@types/cors": "^2.8.6",
+      "@types/dotenv": "^8.2.0",
+      "@types/nodemailer": "^6.4.0",
       "body-parser": "^1.18.1",
       "cors": "^2.8.5",
       "express": "^4.15.4",
