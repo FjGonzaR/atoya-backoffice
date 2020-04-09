@@ -1,23 +1,8 @@
-import {UserController} from "./controller/UserController";
+import express, { response } from 'express';
+const router = express.Router();
 
-export const Routes = [{
-    method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-}, {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-}, {
-    method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save"
-}, {
-    method: "delete",
-    route: "/users/:id",
-    controller: UserController,
-    action: "remove"
-}];
+router.get('',(request, response)=> {
+    response.send({ message : 'Welcome to Atoyy.'});
+})
+
+export default router;
