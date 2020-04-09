@@ -1,56 +1,36 @@
-/**
- * Required External Modules
- */
-import * as dotenv from "dotenv";
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import {Request, Response} from "express";
+import {Routes} from "./routes";
+import {User} from "./entity/User";
 
-dotenv.config();
+createConnection().then(async connection => {
 
-/**
- * App Variables
- */
-if (!process.env.PORT) {
-    process.exit(1);
- }
- 
- const PORT: number = parseInt(process.env.PORT as string, 10);
- 
- const app = express();
-/**
- *  App Configuration
- */
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
-/**
- * Server Activation
- */
-const server = app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-  });
-/**
- * Webpack HMR Activation
- */
+    // create express app
+    const app = express();
+    app.use(bodyParser.json());
 
-type ModuleId = string | number;
+    // register express routes from defined application routes
+    Routes.forEach(route => {
+        (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
+            const result = (new (route.controller as any))[route.action](req, res, next);
+            if (result instanceof Promise) {
+                result.then(result => result !== null && result !== undefined ? res.send(result) : undefined);
 
-interface WebpackHotModule {
-  hot?: {
-    data: any;
-    accept(
-      dependencies: string[],
-      callback?: (updatedDependencies: ModuleId[]) => void,
-    ): void;
-    accept(dependency: string, callback?: () => void): void;
-    accept(errHandler?: (err: Error) => void): void;
-    dispose(callback: (data: any) => void): void;
-  };
-}
+            } else if (result !== null && result !== undefined) {
+                res.json(result);
+            }
+        });
+    });
 
-declare const module: WebpackHotModule;
-if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => server.close());
- }
+    // setup express app here
+    // ...
+
+    // start express server
+    app.listen(3000);
+
+    console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results");
+
+}).catch(error => console.log(error));
