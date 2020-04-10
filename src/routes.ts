@@ -19,6 +19,7 @@ const wrapResponse = async(req,res,method) => {
 router.post(Routes.LOGIN, async (req,res) => await wrapResponse(req,res,userLogInHandler(req,  getConnection())));
 router.post(Routes.SIGNUP ,async (req,res) => await wrapResponse(req,res,userSignUpHandler(req, getConnection())));
 router.post(Routes.CREATE_FROM ,checkToken, async (req,res) => await wrapResponse(req,res,createFormHandler(req, getConnection())));
+router.post(Routes.CREATE_FROM ,checkToken, async (req,res) => await wrapResponse(req,res,createFormHandler(req, getConnection())));
 
 
 export default router;
