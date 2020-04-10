@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, Button, Card, Table, Modal } from 'react-bootstrap';
+import DateTimePicker from 'react-datetime-picker';
 
 class Formulario extends Component {
+    constructor(){
+        super();
+        this.handleTimeChange = this.handleTimeChange.bind(this);
+    }
     state = {
         fecha: new Date()
     }
 
     deployMateriales = () => {
         return <></>;
+    }
+
+    handleTimeChange = (fecha) => {
+        console.log(fecha);   // <- prints "3600" if "01:00" is picked
+        this.setState({fecha})
     }
 
     render() {
@@ -18,7 +28,7 @@ class Formulario extends Component {
                         A T O Y A
                     </Col>
                     <Col xs={6} className="text-right" style={{ fontSize: "300%" }}>
-                        Fecha: {this.state.fecha.getUTCDate() + "/" + (this.state.fecha.getUTCMonth() + 1) + "/" + this.state.fecha.getFullYear()}
+                        Fecha: {this.state.fecha.getDate() + "/" + (this.state.fecha.getMonth() + 1) + "/" + this.state.fecha.getFullYear()}
                     </Col>
                 </Row>
                 <br />
@@ -170,19 +180,24 @@ class Formulario extends Component {
                     <Col>
                         <Form className="text-center">
                             <Form.Row>
-                                <Form.Group as={Col} controlId="chk9">
-                                    <Form.Check inline type="checkbox" label="VFN" />
+                                <Form.Group as={Col} controlId="chk13">
+                                    <DateTimePicker onChange={this.handleTimeChange} value={this.state.fecha}/>
                                 </Form.Group>
-                                <Form.Group as={Col} controlId="chk10">
-                                    <Form.Check inline type="checkbox" label="VFT" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="chk11">
-                                    <Form.Check inline type="checkbox" label="VNT" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="chk12">
-                                    <Form.Check inline type="checkbox" label="Dosificador" />
+                                <Form.Group as={Col} controlId="chk14">
                                 </Form.Group>
                             </Form.Row>
+                        </Form>
+                    </Col>
+                </Row>
+                <br />
+                <br />
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="observaciones">
+                                <Form.Label>Observaciones</Form.Label>
+                                <Form.Control rows="3"/>
+                            </Form.Group>
                         </Form>
                     </Col>
                 </Row>
