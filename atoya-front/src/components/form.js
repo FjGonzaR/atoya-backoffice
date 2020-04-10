@@ -3,21 +3,76 @@ import { Container, Row, Col, Form, Button, Card, Table, Modal } from 'react-boo
 import DateTimePicker from 'react-datetime-picker';
 
 class Formulario extends Component {
-    constructor(){
+    constructor() {
         super();
         this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            fecha: new Date()
+        }
     }
-    state = {
-        fecha: new Date()
-    }
-
-    deployMateriales = () => {
-        return <></>;
-    }
-
+    
     handleTimeChange = (fecha) => {
         console.log(fecha);   // <- prints "3600" if "01:00" is picked
-        this.setState({fecha})
+        this.setState({ fecha });
+    }
+
+    handleShow=()=>{
+        this.setState({
+            show : true
+        });
+    }
+
+    handleClose = () =>{
+        this.setState({
+            show: false
+        });
+    }
+
+    handleSubmit(e) {
+        var data = {ref: document.getElementById("ref").value, desc: document.getElementById("desc").value, cant: document.getElementById("cant").value};
+        console.log(data);
+        this.handleClose();
+    }
+
+    botonForm = () => {
+        return (
+            <>
+                <td key={"0"} colSpan="3" onClick={() => this.handleShow()}>Agregar</td>
+                <Modal size="lg" show={this.state.show} onHide={this.handleClose} centered ref={this.wrapper}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Agregar Material/Repuesto</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group controlId="ref">
+                                <Form.Label>Referencia</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
+                            <Form.Group controlId="desc">
+                                <Form.Label>Descripción</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
+                            <Form.Group controlId="cant">
+                                <Form.Label>Cantidad</Form.Label>
+                                <Form.Control type="number" />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>Cancelar</Button>
+                        <Button variant="success"onClick={this.handleSubmit}>Crear taller</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+        );
+    }
+
+    tablelist = () => {
+        let final = [];
+        final.push(this.botonForm());
+        return final;
     }
 
     render() {
@@ -76,7 +131,7 @@ class Formulario extends Component {
                                     <Form.Control />
                                 </Form.Group>
 
-                                <Form.Group as={Col} controlId="ref">
+                                <Form.Group as={Col} controlId="referencia">
                                     <Form.Label>Referencia</Form.Label>
                                     <Form.Control />
                                 </Form.Group>
@@ -144,7 +199,9 @@ class Formulario extends Component {
                                     </thead>
                                     <tbody>
                                         <tr className="text-center">
-                                            <td colSpan="3" onClick={this.deployMateriales}>Agregar</td>
+                                            {this.tablelist().map((e) => {
+                                                return e;
+                                            })}
                                         </tr>
                                     </tbody>
                                 </Table>
@@ -181,7 +238,7 @@ class Formulario extends Component {
                         <Form className="text-center">
                             <Form.Row>
                                 <Form.Group as={Col} controlId="chk13">
-                                    <DateTimePicker onChange={this.handleTimeChange} value={this.state.fecha}/>
+                                    <DateTimePicker onChange={this.handleTimeChange} value={this.state.fecha} />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="chk14">
                                 </Form.Group>
@@ -196,7 +253,7 @@ class Formulario extends Component {
                         <Form>
                             <Form.Group controlId="observaciones">
                                 <Form.Label>Observaciones</Form.Label>
-                                <Form.Control rows="3"/>
+                                <Form.Control rows="3" />
                             </Form.Group>
                         </Form>
                     </Col>
