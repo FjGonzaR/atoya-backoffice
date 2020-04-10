@@ -1,7 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne} from "typeorm";
+import { Form } from "./Form";
 
 @Entity()
-export class PlaningOrder {
+export class PlanningOrder {
 
     @PrimaryGeneratedColumn()
     id: string;
@@ -22,4 +23,10 @@ export class PlaningOrder {
         nullable : true,
     })
     officer : string;
+
+    @OneToOne(
+        type => Form,
+        form => form.planningOrder
+    )
+    form : Form
 }

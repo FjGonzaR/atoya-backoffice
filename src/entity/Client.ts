@@ -16,6 +16,9 @@ export class Client {
     @Column({length : 50, nullable : true})
     city: string;
 
+    @Column({length : 50, nullable : true})
+    email: string;
+
     @OneToMany(
         type => Form,
         form => form.client,

@@ -14,10 +14,6 @@ export class Material {
   @Column({ default: 0, type: "int" })
   units: number;
 
-  @ManyToOne(
-      type => Form,
-      form => form.materials,
-      {nullable : true}
-  )
+  @ManyToOne('Form', 'materials')
   form : Form
 }

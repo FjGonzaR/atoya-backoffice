@@ -1,7 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { resolve } from "path"
 
-export const environment = {
-    source_email : process.env.SOURCE_EMAIL,
-    source_password : process.env.SOURCE_PASSWORD
-};
+import { config } from "dotenv"
+
+config({ path: resolve(__dirname, "./env") })
