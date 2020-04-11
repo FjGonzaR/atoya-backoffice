@@ -15,7 +15,6 @@ const wrapResponse = async (req, res, method) => {
     const response = await method;
     res?res.send(response):false;
   } catch (error) {
-    console.log(error);
     res.status(400).send({ error });
   }
 };

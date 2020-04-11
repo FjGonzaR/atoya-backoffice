@@ -6,7 +6,6 @@ export const userLogInHandler = async (req, dbConn: Connection) => {
   const { email, password } = req.body;
   await userLogIn(email, password, dbConn);
   const token = generateToken(email);
-  console.log(token);
   return { token };
 };
 

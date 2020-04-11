@@ -4,7 +4,7 @@
    "description": "Atoya backoffice app.",
    "devDependencies": {
       "@types/node": "^8.0.29",
-      "ts-node": "3.3.0",
+      "ts-node": "^3.3.0",
       "ts-node-dev": "^1.0.0-pre.44",
       "typescript": "3.3.3333"
    },
@@ -29,13 +29,13 @@
       "typescript": "3.3.3333"
    },
    "scripts": {
-      "start" : "npm run build && npm run prod",
-      "prod": "node build/src/index.js",
-      "start:dev" : "ts-node-dev src/index.ts",
+      "start": "npm run build && npm run prod",
+      "prod": "ts-node build/index.js",
+      "start:dev": "ts-node-dev index.ts",
       "build": "npm run ts:build",
       "ts:build": "tsc"
    },
    "engines": {
-      "node" : "10.16.1"
+      "node": "10.16.1"
    }
 }

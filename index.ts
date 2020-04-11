@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import path from 'path';
 //import cookieParser from 'cookie-parser';
 import cors  from 'cors';
-import router from './routes';
+import router from './src/routes';
 import { createConnection } from "typeorm";
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 
 createConnection().then(connection => {
   app.use('/', router);
-}).catch(reason => console.log('Database connection failed.'));
+}).catch(reason => console.log(`Database connection failed ${reason}`));
 
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development

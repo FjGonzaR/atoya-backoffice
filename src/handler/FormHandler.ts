@@ -12,7 +12,6 @@ chunk.configure(path.join(__dirname, "..", "..", "src/htmls"), {
   autoescape: true,
 });
 export const createFormHandler = async (req, dbConn: Connection) => {
-  console.log(req.body);
   const form = req.body.form;
   const materials = req.body.materials;
   const client = req.body.client;
@@ -54,7 +53,6 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
 };
 
 export const downloadForm = async(req,res, dbConn: Connection) => {
-  console.log('Here');
   const formId = req.params.form_id;
   const form = await getFormDetailed(formId, dbConn);
   const pdfHtml = getFormPdf(form);

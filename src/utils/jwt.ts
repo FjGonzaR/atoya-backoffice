@@ -67,11 +67,9 @@ export const checkToken = ( req, res, next ) => {
 
 export const generateToken = (email:string) => {
     try{
-        console.log(process.env.SECRET_KEY);
     return jwt.sign({email}, process.env.SECRET_KEY, {expiresIn: '3h'});
     }
     catch(error){
-        console.log(error)
         throw error;
     }
 }
