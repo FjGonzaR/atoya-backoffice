@@ -25,12 +25,15 @@
       "nunjucks": "^3.2.1",
       "pg": "^7.18.2",
       "reflect-metadata": "^0.1.10",
-      "typeorm": "0.2.24"
+      "typeorm": "0.2.24",
+      "typescript": "3.3.3333"
    },
    "scripts": {
-      "start": "node src/index.ts",
+      "start" : "npm run build && npm run prod",
+      "prod": "node build/src/index.js",
       "start:dev" : "ts-node-dev src/index.ts",
-      "postinstall":"tsc"
+      "build": "npm run ts:build",
+      "ts:build": "tsc"
    },
    "engines": {
       "node" : "10.16.1"
