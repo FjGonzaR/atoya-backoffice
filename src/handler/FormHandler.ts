@@ -2,12 +2,11 @@ import { createForm, getFormDetailed } from "../controller/FormController";
 import { Connection } from "typeorm";
 import { Client } from "../entity/Client";
 import { sendEmail } from "../utils/mail";
-import { Attachment, IForm } from "../types/form";
+import { IForm } from "../types/form";
 import path from "path";
 import chunk from "nunjucks";
 import { Form } from "../entity/Form";
 import pdf from "html-pdf";
-import { resolve } from "url";
 
 chunk.configure(path.join(__dirname, "..", "..", "src/htmls"), {
   autoescape: true,
