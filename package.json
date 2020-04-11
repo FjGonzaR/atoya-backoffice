@@ -1,7 +1,7 @@
 {
    "name": "atoya",
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "Atoya backoffice app.",
    "devDependencies": {
       "@types/node": "^8.0.29",
       "ts-node": "3.3.0",
@@ -29,6 +29,10 @@
    },
    "scripts": {
       "start": "node src/index.ts",
-      "start:dev" : "ts-node-dev src/index.ts"
+      "start:dev" : "ts-node-dev src/index.ts",
+      "postinstall":"tsc"
+   },
+   "engines": {
+      "node" : "10.16.1"
    }
 }
