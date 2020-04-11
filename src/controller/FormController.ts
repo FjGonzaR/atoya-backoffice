@@ -31,6 +31,11 @@ export const getForm = async(formId : string,dbConn : Connection) => {
     return await dbConn.manager.findOne(Form, formId);
 }
 
+export const getFormDetailed = async(formId : string,dbConn : Connection) => {
+  return await dbConn.manager.findOne(Form, formId,{
+    relations : ['client','planningOrder', 'materials']
+  });
+}
 const createMaterials = (materials: Material[], form: Form) => {
   return materials.map((material) => {
     material.form = form;

@@ -58,7 +58,9 @@
       padding: 0 0 2.5em;
     }
 
-    h2 {
+    .subtitle {
+      font-size: 1.4em;
+      font-weight: 600;
       text-align: center;
     }
 
@@ -112,7 +114,8 @@
 
     tr.itemDos td {
       padding: 0.2em 0;
-      border-bottom: thin solid black;
+      border-style: solid;
+      border-width: 0.2px;
     }
 
 
@@ -143,11 +146,6 @@
     aside {
       float: right;
       width: 10em
-    }
-
-    footer {
-      float: bottom;
-      text-align: center
     }
 
     body.usd td.currency:before {
@@ -187,9 +185,19 @@
     .infor {
       width: 85%;
     }
-
     .planOrder{
       margin-top: 15px;
+    }
+    footer{
+      text-align: center;
+    }
+    .titulo{
+      font-size: 3.3em;
+      font-weight: bolder;
+    }
+    .subheader{
+      padding: 6px !important;
+      text-align: center;
     }
   </style>
 </head>
@@ -197,7 +205,7 @@
 <body class="usd" data-gr-c-s-loaded="true">
 
   <aside>
-    <img width="150" src="logo-atoya.jpeg">
+    <img width="150" src="https://i.imgur.com/qWyIrW4.jpg">
     <address class="from">
       Atoya SAS
       CALLE 37 Nº 68 I 91 SUR
@@ -207,7 +215,7 @@
   </aside>
 
 
-  <h1>Solicitud</h1>
+  <p class="titulo">Solicitud</p>
 
   <address class="to">
     {{client.name}}
@@ -218,15 +226,15 @@
     <tbody>
       <tr>
         <td>Fecha :</td>
-        <td colspan="3">{{form.created_at}}</td>
+        <td colspan="3">{{created_at}}</td>
       </tr>
       <tr>
         <td>Identificador formulario:</td>
-        <td colspan="3">{{form.id}}</td>
+        <td colspan="3">{{id}}</td>
       </tr>
       <tr>
         <td>Descripción :</td>
-        <td colspan="3">{{form.description}}</td>
+        <td colspan="3">{{description}}</td>
       </tr>
     </tbody>
   </table>
@@ -234,42 +242,42 @@
     <tbody>
       <tr>
         <td>Unidad física :</td>
-        <td>{{form.physic_unit}}</td>
+        <td>{{physic_unit}}</td>
         <td>Equipo :</td>
-        <td>{{form.equipment}}</td>
+        <td>{{equipment}}</td>
       </tr>
       <tr>
         <td>Serial :</td>
-        <td>{{form.serial}}</td>
+        <td>{{serial_number}}</td>
         <td>Referencia : </td>
-        <td>{{form.reference}}</td>
+        <td>{{reference}}</td>
       </tr>
     </tbody>
   </table>
   <table>
     <tbody>
-      <h2 style="text-align: center;">Revisiones y trabajos a efectuar</h2>
+      <p class="subtitle">Revisiones y trabajos a efectuar</p>
       <tr class="item">
-        {% for revision in revisions %}
-        <td colspan={{revisions.tamanio}}>{{revision}}</td>
+        {% for revision in revisionsPdf %}
+        <td colspan={{8/revisionsPdf.length}}>{{revision}}</td>
         {% endfor %}
       </tr>
       <tr class="itemDos">
-        <td>VFN:</td>
-        <td>{{form.vfn}}</td>
-        <td>VFT:</td>
-        <td>{{form.vft}}</td>
-        <td>VNT:</td>
-        <td>{{form.vnt}}</td>
-        <td>Dosificador UPS:</td>
-        <td>{{form.ups_dosing}}</td>
+        <td class="subheader">VFN</td>
+        <td class="subheader">{{vfn}}</td>
+        <td class="subheader">VFT</td>
+        <td class="subheader">{{vft}}</td>
+        <td class="subheader">VNT</td>
+        <td class="subheader">{{vnt}}</td>
+        <td class="subheader">Dosificador UPS</td>
+        <td class="subheader">{{ups_dosing}}</td>
       </tr>
     </tbody>
   </table>
   <br>
   <table>
     <tbody>
-      <h2 style="text-align: center;">Materiales y repuestos</h2>
+      <p class="subtitle">Materiales y repuestos</p>
       <table>
         <tbody>
           <tr class="head">
@@ -286,9 +294,9 @@
           {% endfor %}
         </tbody>
       </table>
-      <h2>Observaciones</h2>
+      <p class="subtitle">Observaciones</p>
       <div class="observations">
-        <p> {{form.observations}}</p>
+        <p> {{observations}}</p>
         <table>
           <tbody>
             <tr>
@@ -296,14 +304,14 @@
                 Pendientes :
               </td>
               <td class="lessSize">
-                {{form.pending_observations}}
+                {{pending_observations}}
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="planOrder">
-        <h2>Planeación de órdens y servicios</h2>
+        <p class="subtitle">Planeación de órdenes y servicios</p>
         <table>
           <tr>
             <th colspan="2">Actividades de ejecución a planear</th>
@@ -351,7 +359,7 @@
       </div>
 
       <br>
-      <footer>Atoya 2020</footer>
+      <footer>Atoya 2020</div>
 </body>
 
 </html>
