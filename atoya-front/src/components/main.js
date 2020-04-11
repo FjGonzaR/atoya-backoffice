@@ -8,7 +8,9 @@ import {
   ListGroup,
   Navbar,
 } from "react-bootstrap";
+import axios from 'axios';
 import { Link } from "react-router-dom";
+import { saveAs } from 'file-saver';
 import "./main.css";
 
 
@@ -16,6 +18,23 @@ class Main extends Component {
   state = {
     fecha: new Date(),
   };
+
+  downloadPDF = () => {
+    if (localStorage.getItem("token") != null) {
+      axios.get("https://atoya-app.herokuapp.com/form/2bc623e3-0e6f-459f-9814-a087ce1cc961/download", { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") }, responseType: 'blob' })
+        .then(res => {
+          const pdfBlob = new Blob([res.data], {type:'application/pdf'});
+          saveAs(pdfBlob, "newPdf.pdf");
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    else {
+      console.log("NO HAY TOKEN VALIDO");
+    }
+  }
+
   render() {
     return (
       <>
@@ -44,59 +63,7 @@ class Main extends Component {
                   <h1>04/02/2020 - Empresa1</h1>
                 </Col>
                 <Col xs={2}>
-                  <Button variant="primary">Descargar PDF</Button>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="secondary">Enviar correo</Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item className="itemHover">
-              <Row className="justify-content-center text-center">
-                <Col xs={8}>
-                  <h1>04/02/2020 - Empresa2</h1>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="primary">Descargar PDF</Button>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="secondary">Enviar correo</Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item className="itemHover">
-              <Row className="justify-content-center text-center">
-                <Col xs={8}>
-                  <h1>04/02/2020 - Empresa3</h1>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="primary">Descargar PDF</Button>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="secondary">Enviar correo</Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item className="itemHover">
-              <Row className="justify-content-center text-center">
-                <Col xs={8}>
-                  <h1>04/02/2020 - Empresa4</h1>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="primary">Descargar PDF</Button>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="secondary">Enviar correo</Button>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-            <ListGroup.Item className="itemHover">
-              <Row className="justify-content-center text-center">
-                <Col xs={8}>
-                  <h1>04/02/2020 - Empresa5</h1>
-                </Col>
-                <Col xs={2}>
-                  <Button variant="primary">Descargar PDF</Button>
+                  <Button variant="primary" onClick={this.downloadPDF}>Descargar PDF</Button>
                 </Col>
                 <Col xs={2}>
                   <Button variant="secondary">Enviar correo</Button>
