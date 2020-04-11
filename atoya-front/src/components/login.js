@@ -19,8 +19,6 @@ class Login extends Component {
   };
   validateLogin = (e) => {
     e.preventDefault();
-    // console.log(e.target.elements.usr.value);
-    // console.log(sha256(e.target.elements.pw.value));
     const response = axios
       .post("http://localhost:5000/login", {
         email: e.target.elements.usr.value,
@@ -57,9 +55,9 @@ class Login extends Component {
                 <Form.Label>Contraseña</Form.Label>
                 <Form.Control type="password" />
               </Form.Group>
-              <Button className="atoyaButton" type="submit">
+              <button className="btn atoyaButton" type="submit">
                 Ingresar
-              </Button>
+              </button>
             </Form>
           </Card.Body>
         </Card>

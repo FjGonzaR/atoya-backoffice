@@ -11,3 +11,19 @@ body{
     color : rgb(153, 0, 0);
     border-color: rgb(153, 0, 0);
 }
+
+.atoyaButton:active{
+    background-color: #ffffff !important; 
+    color : rgb(153, 0, 0) !important;
+    border-color: rgb(153, 0, 0) !important;
+}
+.navbar{
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    bottom: auto;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+}
