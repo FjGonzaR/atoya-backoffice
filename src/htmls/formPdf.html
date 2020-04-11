@@ -4,6 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
   <style>
     html,
     body,
@@ -35,11 +36,6 @@
         margin: 5em
       }
     }
-
-    body {
-      font: 11pt 'Baloo Thambi 2', serif
-    }
-
     q::before {
       content: "\201C";
     }
@@ -51,16 +47,12 @@
     q {
       font-style: italic
     }
-
-    h1 {
-      font-size: 3.2em;
+    body{
       font-family: "Baloo Thambi 2";
-      padding: 0 0 2.5em;
     }
-
     .subtitle {
-      font-size: 1.4em;
-      font-weight: 600;
+      font-size: 1.0em;
+      font-family: 'Baloo Tamma 2', cursive !important;
       text-align: center;
     }
 
@@ -114,15 +106,19 @@
 
     tr.itemDos td {
       padding: 0.2em 0;
-      border-style: solid;
-      border-width: 0.2px;
+      border: 0.02em solid black
     }
 
 
     tr.head td {
       font-weight: bold;
-      padding: 1.5em 0 0.2em 0;
-      border-bottom: thin solid black
+      padding: 1.0em 0 0.2em 0;
+      border-bottom: solid black
+    }
+    .header{
+      font-size: 0.7em;
+      font-family: 'Baloo Tamma 2', cursive !important;
+      
     }
 
     tr.instruction td {
@@ -176,8 +172,7 @@
     }
 
     .observations {
-      border-style: solid;
-      border-width: 0.6px;
+      border: 0.1em solid #e4e4e4;
       border-radius: 1em;
       padding: 4px;
     }
@@ -194,6 +189,7 @@
     .titulo{
       font-size: 3.3em;
       font-weight: bolder;
+      font-family: 'Baloo Tamma 2', cursive !important;
     }
     .subheader{
       padding: 6px !important;
@@ -281,9 +277,9 @@
       <table>
         <tbody>
           <tr class="head">
-            <td>Referencia</td>
-            <td>Descripción</td>
-            <td>Cantidad</td>
+            <td class="header">Referencia</td>
+            <td class="header">Descripción</td>
+            <td class="header">Cantidad</td>
           </tr>
           {% for material in materials %}
           <tr class="item">
@@ -314,7 +310,7 @@
         <p class="subtitle">Planeación de órdenes y servicios</p>
         <table>
           <tr>
-            <th colspan="2">Actividades de ejecución a planear</th>
+            <th class="header" colspan="2">Actividades de ejecución a planear</th>
           </tr>
           <tr class="item">
             <td class="infor">Anotar seriales, revisión eléctrica, mecánica, limpieza y pruebas de funcionamiento,
@@ -324,7 +320,7 @@
         </table>
         <table>
           <tr>
-            <th colspan="2">Repuestos y herramientas necesarios.</th>
+            <th class="header" colspan="2">Repuestos y herramientas necesarios.</th>
           </tr>
           <tr class="item">
             <td class="infor">Herramienta de mano, soplador, aceite, paño limpieza, silicona, repuestos como fusibles,
@@ -334,7 +330,7 @@
         </table>
         <table>
           <tr>
-            <th colspan="2">Elementos de seguridad, permisos y procedimientos a considerar</th>
+            <th class="header" colspan="2">Elementos de seguridad, permisos y procedimientos a considerar</th>
           </tr>
           <tr class="item">
             <td class="infor">Guantes, botas de sguridad, uniforme, reporte pago seguridad social, informe, entrar por
@@ -357,9 +353,7 @@
           </tr>
         </table>
       </div>
-
       <br>
-      <footer>Atoya 2020</div>
 </body>
 
 </html>
