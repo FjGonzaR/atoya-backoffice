@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Image, Alert } from 'react-bootstrap';
-import Logo from '../Captura.PNG';
-
+import {
+    Container,
+    Form,
+    Card,
+  } from "react-bootstrap";
+import './styles/register.css';
 class Register extends Component {
     state = {
         showAlert: false,
@@ -31,62 +34,27 @@ class Register extends Component {
         }
     }
 
-    changeAlert = (b) => {
-        this.setState({ showAlert: b });
-    }
-
-    showAlert() {
-        if (this.state.showAlert) {
-            return (
-                <Alert variant="danger" onClose={() => this.changeAlert(false)} dismissible>
-                    <Alert.Heading>Error</Alert.Heading>
-                    <p>{this.state.message}</p>
-                </Alert>
-            );
-        }
-    }
-
     render() {
         return (
-            <Container fluid className="d-flex h-100">
-                <Row className="align-items-center h-100 w-100">
-                    <Col className="mx-auto text-center">
-                        <Container>
-                            <Row>
-                                <Col><Image src={Logo} fluid /></Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Form onSubmit={(e) => this.validateLogin(e)}>
-                                        <Form.Group controlId="usr">
-                                            <Form.Label>Usuario</Form.Label>
-                                            <Form.Control placeholder="Username para ingresar a la plataforma" />
-                                        </Form.Group>
-                                        <Form.Group controlId="mail">
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" placeholder="Asegurese de tener la estructura 'ejemplo@dominio.com'" />
-                                        </Form.Group>
-                                        <Form.Group controlId="pw">
-                                            <Form.Label>Contraseña</Form.Label>
-                                            <Form.Control type="password" placeholder="Debe ser una cadena de exactamente 8 digitos" />
-                                        </Form.Group>
-                                        <Form.Group controlId="cpw">
-                                            <Form.Label>Confirmar contraseña</Form.Label>
-                                            <Form.Control type="password" />
-                                        </Form.Group>
-                                        <Button variant="primary" type="submit">
-                                            Registrarse
-                                        </Button>
-                                    </Form>
-                                    <br/>
-                                    <br/>
-                                    {this.showAlert()}
-                                </Col>
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-            </Container>
+            <Container className="d-flex align-items-center justify-content-center flex-column fullDimensionsR">
+            <Card className="cardShadowR shadow-lg ">
+              <Card.Body>
+                <Form onSubmit={(e) => this.validateLogin(e)} className="d-flex flex-column justify-content-center">
+                  <Form.Group controlId="usr">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" placeholder="Ingrese su correo"/>
+                  </Form.Group>
+                  <Form.Group controlId="pw">
+                    <Form.Label>Contraseña</Form.Label>
+                    <Form.Control type="password" placeholder="Ingrese una contraseña de 6 dígitos" />
+                  </Form.Group>
+                  <button className="btn atoyaButton" type="submit">
+                    Crear usuario
+                  </button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Container>
         );
     }
 }

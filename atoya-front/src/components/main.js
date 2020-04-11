@@ -3,10 +3,8 @@ import {
   Container,
   Row,
   Col,
-  Image,
   Button,
   ListGroup,
-  Navbar,
 } from "react-bootstrap";
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -38,11 +36,6 @@ class Main extends Component {
   render() {
     return (
       <>
-        <Navbar className="justify-content-between">
-          <Navbar.Brand href="/">
-            <strong>Atoya BackOffice</strong>
-          </Navbar.Brand>
-        </Navbar>
         <Container>
           <br />
           <br />
