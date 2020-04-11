@@ -1,0 +1,10 @@
+.createForm{
+    background-color: #fff9f9;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 4em;
+}
+.custom-control-input:checked~.custom-control-label::before{
+    border-color: rgb(153, 0, 0) !important;
+    background-color:rgb(153, 0, 0) !important;
+}

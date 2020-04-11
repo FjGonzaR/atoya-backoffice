@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Card, Table, Modal, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Card, Table, Modal } from 'react-bootstrap';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
+import "./styles/form.css";
 
 class Formulario extends Component {
     constructor() {
@@ -158,18 +159,11 @@ class Formulario extends Component {
 
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col xs={6} style={{ fontSize: "300%" }}>
-                        A T O Y A
-                    </Col>
-                    <Col xs={6} className="text-right" style={{ fontSize: "300%" }}>
-                        Fecha: {this.state.fecha.getDate() + "/" + (this.state.fecha.getMonth() + 1) + "/" + this.state.fecha.getFullYear()}
-                    </Col>
-                </Row>
-                <br />
-                <br />
-                <Row>
+            <>
+            <Container className="createForm">
+                <Card>
+                    <Card.Body>
+                    <Row>
                     <Col>
                         <Form>
                             <Form.Row>
@@ -405,13 +399,16 @@ class Formulario extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <Button onClick={this.handlePost}>
-                            Enviar
-                        </Button>
+                    <Col className="text-center">
+                        <button className="btn atoyaButton" onClick={this.handlePost}>
+                            Crear
+                        </button>
                     </Col>
                 </Row>
+                    </Card.Body>
+                </Card>
             </Container>
+            </>
         );
     }
 }
