@@ -23,6 +23,7 @@
       "nodemailer": "^6.4.6",
       "nunjucks": "^3.2.1",
       "ts-node": "^3.3.0",
+      "node": "10.16.1",
       "pg": "^7.18.2",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.24",
@@ -30,7 +31,7 @@
    },
    "scripts": {
       "start": "npm run build && npm run prod",
-      "prod": "node build/index.js",
+      "prod": "ts-node build/index.js",
       "start:dev": "ts-node-dev index.ts",
       "build": "npm run ts:build",
       "ts:build": "tsc"
