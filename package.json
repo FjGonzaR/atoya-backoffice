@@ -30,7 +30,7 @@
    },
    "scripts": {
       "start": "npm run build && npm run prod",
-      "prod": "ts-node build/index.js",
+      "prod": "node build/index.js",
       "start:dev": "ts-node-dev index.ts",
       "build": "npm run ts:build",
       "ts:build": "tsc"
