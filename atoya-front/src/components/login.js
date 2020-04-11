@@ -17,7 +17,7 @@ class Login extends Component {
   validateLogin = (e) => {
     e.preventDefault();
     const response = axios
-      .post("https://atoya-app.herokuapp.com/login", {
+      .post("http://localhost:5000/login", {
         email: e.target.elements.usr.value,
         password: e.target.elements.pw.value,
       })

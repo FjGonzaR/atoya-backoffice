@@ -30,7 +30,8 @@
       "typescript": "3.3.3333"
    },
    "scripts": {
-      "start": "npm run build && npm run prod",
+      "start": "npm run build && npm run html && npm run prod",
+      "html": "copyfiles ./src/html ./build/src",
       "prod": "ts-node build/index.js",
       "start:dev": "ts-node-dev index.ts",
       "build": "npm run ts:build",
