@@ -61,9 +61,9 @@ class Formulario extends Component {
         envio["form"]["reference"] = document.getElementById("referencia").value;
         envio["form"]["observations"] = document.getElementById("observaciones").value;
         envio["form"]["pending_observations"] = document.getElementById("pendientes").value;
-        envio["form"]["type"] = "Tipo1";
-        envio["form"]["beginning_hour"] = `${this.state.initialDate.getFullYear()}-${this.state.initialDate.getMonth()+1}-${this.state.initialDate.getDate()}T${this.state.initialDate.getHours()}:${this.state.initialDate.getMinutes()}:${this.state.initialDate.getSeconds()}.${this.state.initialDate.getMilliseconds()}Z`;
-        envio["form"]["finishing_hour"] = `${this.state.finalDate.getFullYear()}-${this.state.finalDate.getMonth()+1}-${this.state.finalDate.getDate()}T${this.state.finalDate.getHours()}:${this.state.finalDate.getMinutes()}:${this.state.finalDate.getSeconds()}.${this.state.finalDate.getMilliseconds()}Z`;
+        envio["form"]["type"] = "Tintometria";
+        envio["form"]["beginning_hour"] = this.state.initialDate.toString();
+        envio["form"]["finishing_hour"] = this.state.finalDate.toString();
         envio["form"]["vfn"] = document.getElementById("chk9").checked;
         envio["form"]["vft"] = document.getElementById("chk10").checked; 
         envio["form"]["vnt"] = document.getElementById("chk11").checked; 
