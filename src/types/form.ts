@@ -1,5 +1,4 @@
 import { Client } from "../entity/Client"
-import { PlanningOrder } from "../entity/PlanningOrder";
 import { Material } from "../entity/Material";
 
 export enum FormType {

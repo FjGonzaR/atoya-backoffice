@@ -1,4 +1,4 @@
-import "reflect-metadata";
+require("reflect-metadata");
 import express from "express";
 import bodyParser from "body-parser";
 import path from 'path';
