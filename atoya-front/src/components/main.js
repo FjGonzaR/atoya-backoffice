@@ -18,27 +18,97 @@ class Main extends Component {
             Fecha: {this.state.fecha.getDate() + "/" + (this.state.fecha.getMonth() + 1) + "/" + this.state.fecha.getFullYear()}
           </Col>
         </Row>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <ListGroup className="listaEducacion">
           <ListGroup.Item className="itemHover">
-            <h1>Encargo #1</h1>
+            <Row className="justify-content-center text-center">
+              <Col xs={8}>
+                <h1>04/02/2020 - Empresa1</h1>
+              </Col>
+              <Col xs={2}>
+                <Button variant="primary">
+                  Descargar PDF
+                </Button>
+              </Col>
+              <Col xs={2}>
+                <Button variant="secondary">
+                  Enviar correo
+                </Button>
+              </Col>
+            </Row>
           </ListGroup.Item>
           <ListGroup.Item className="itemHover">
-            <h1>Encargo #2</h1>
+            <Row className="justify-content-center text-center">
+              <Col xs={8}>
+                <h1>04/02/2020 - Empresa2</h1>
+              </Col>
+              <Col xs={2}>
+                <Button variant="primary">
+                  Descargar PDF
+                </Button>
+              </Col>
+              <Col xs={2}>
+                <Button variant="secondary">
+                  Enviar correo
+                </Button>
+              </Col>
+            </Row>
           </ListGroup.Item>
           <ListGroup.Item className="itemHover">
-            <h1>Encargo #3</h1>
+            <Row className="justify-content-center text-center">
+              <Col xs={8}>
+                <h1>04/02/2020 - Empresa3</h1>
+              </Col>
+              <Col xs={2}>
+                <Button variant="primary">
+                  Descargar PDF
+                </Button>
+              </Col>
+              <Col xs={2}>
+                <Button variant="secondary">
+                  Enviar correo
+                </Button>
+              </Col>
+            </Row>
           </ListGroup.Item>
           <ListGroup.Item className="itemHover">
-            <h1>Encargo #4</h1>
+            <Row className="justify-content-center text-center">
+              <Col xs={8}>
+                <h1>04/02/2020 - Empresa4</h1>
+              </Col>
+              <Col xs={2}>
+                <Button variant="primary">
+                  Descargar PDF
+                </Button>
+              </Col>
+              <Col xs={2}>
+                <Button variant="secondary">
+                  Enviar correo
+                </Button>
+              </Col>
+            </Row>
           </ListGroup.Item>
           <ListGroup.Item className="itemHover">
-            <h1>Encargo #5</h1>
+            <Row className="justify-content-center text-center">
+              <Col xs={8}>
+                <h1>04/02/2020 - Empresa5</h1>
+              </Col>
+              <Col xs={2}>
+                <Button variant="primary">
+                  Descargar PDF
+                </Button>
+              </Col>
+              <Col xs={2}>
+                <Button variant="secondary">
+                  Enviar correo
+                </Button>
+              </Col>
+            </Row>
           </ListGroup.Item>
         </ListGroup>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <Row className="justify-content-center text-center">
           <Col>
             <Link to="/form">
