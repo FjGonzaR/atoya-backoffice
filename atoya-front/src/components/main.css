@@ -1,0 +1,12 @@
+.listaEducacion{
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 500;
+    margin-top: 2px;
+    padding-left: 2px;
+    font-size: 1.5vw;
+}
+
+.itemHover:hover{
+    border-color: rgb(112, 112, 112);
+    border-bottom-width: 3px;
+}
