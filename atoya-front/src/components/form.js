@@ -95,7 +95,7 @@ class Formulario extends Component {
         
         console.log(envio);
         if(localStorage.getItem("token") != null){
-            axios.post("http://localhost:5000/form", envio, {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
+            axios.post("https://atoya-app.herokuapp.com/form", envio, {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
                 .then(res =>{
                     console.log(res);
                 })
