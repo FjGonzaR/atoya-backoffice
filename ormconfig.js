@@ -10,9 +10,7 @@ module.exports = {
     "extra" : {
        "ssl" : true
     },
-    "entities": [
-       "src/entity/**/*.ts"
-    ],
+    "entities": [process.env.ENTITY_PATH],
     "migrations": [
        "src/migration/**/*.ts"
     ],
