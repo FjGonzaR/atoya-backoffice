@@ -12,6 +12,7 @@ chunk.configure(path.join(__dirname, "..", "..", "src/htmls"), {
   autoescape: true,
 });
 export const createFormHandler = async (req, dbConn: Connection) => {
+  console.log(req.body);
   const form = req.body.form;
   const materials = req.body.materials;
   const client = req.body.client;

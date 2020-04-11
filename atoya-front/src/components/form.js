@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Form, Button, Card, Table, Modal, Alert } from 'react-bootstrap';
 import DateTimePicker from 'react-datetime-picker';
+import axios from 'axios';
 
 class Formulario extends Component {
     constructor() {
@@ -9,6 +10,7 @@ class Formulario extends Component {
         this.handleFinalDateChange = this.handleFinalDateChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePost = this.handlePost.bind(this);
         this.state = {
             fecha: new Date(),
             initialDate: new Date(),
@@ -20,19 +22,13 @@ class Formulario extends Component {
     }
     
     handleInitialDateChange = (initialDate) => {
-        console.log(initialDate);   // <- prints "3600" if "01:00" is picked
+        console.log(initialDate);
         this.setState({ initialDate });
-        this.setState({ finalDisabled : false })
     }
 
     handleFinalDateChange = (finalDate) => {
-        console.log(finalDate);   // <- prints "3600" if "01:00" is picked
-        if(this.state.initialDate <= finalDate){
-            this.setState({ finalDate });
-        }
-        else{
-
-        }
+        console.log(finalDate);
+        this.setState({ finalDate });
     }
 
     handleShow=()=>{
@@ -47,16 +43,15 @@ class Formulario extends Component {
         });
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         var data = {reference: document.getElementById("ref").value, description: document.getElementById("desc").value, units: document.getElementById("cant").value};
         this.setState((prevState) => ({
            materials: [...prevState.materials, data]
         }));
         this.handleClose();
-        this.handlePost();
     }
 
-    handlePost() {
+    handlePost = () => {
         var envio = {};
         envio["form"] = {};
         envio["form"]["description"] = document.getElementById("descripcion").value;
@@ -66,7 +61,9 @@ class Formulario extends Component {
         envio["form"]["reference"] = document.getElementById("referencia").value;
         envio["form"]["observations"] = document.getElementById("observaciones").value;
         envio["form"]["pending_observations"] = document.getElementById("pendientes").value;
-        envio["form"]["type"] = 1;
+        envio["form"]["type"] = "Tintometria";
+        envio["form"]["beginning_hour"] = this.state.initialDate.toString();
+        envio["form"]["finishing_hour"] = this.state.finalDate.toString();
         envio["form"]["vfn"] = document.getElementById("chk9").checked;
         envio["form"]["vft"] = document.getElementById("chk10").checked; 
         envio["form"]["vnt"] = document.getElementById("chk11").checked; 
@@ -84,16 +81,30 @@ class Formulario extends Component {
         envio["form"]["revisions"] = revisions;
         envio["materials"] = this.state.materials;
         envio["client"] = {}
-        envio["client"]["name"] = document.getElementById("cliente").value;
+        envio["client"]["name"] = document.getElementById("solicita").value;
         envio["client"]["city"] = document.getElementById("ciudad").value;
-        envio["client"]["enterprise"] = document.getElementById("solicita").value;
+        envio["client"]["email"] = "email@gmail.com";
+        envio["client"]["enterprise"] = document.getElementById("cliente").value;
         envio["planning_order"] = {}
         envio["planning_order"]["activities"] = document.getElementById("act").checked;
         envio["planning_order"]["responsabilitites"] = document.getElementById("rep").checked;
         envio["planning_order"]["considerations"] = document.getElementById("ele").checked;
         envio["planning_order"]["observations"] = document.getElementById("aditobs").value;
         envio["planning_order"]["officer"] = document.getElementById("responsable").value;
+        
         console.log(envio);
+        if(localStorage.getItem("token") != null){
+            axios.post("http://localhost:5000/form", envio, {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
+                .then(res =>{
+                    console.log(res);
+                })
+                .catch(err =>{
+                    console.log(err);
+                })
+        }
+        else {
+            console.log("NO HAY TOKEN VALIDO");
+        }
     }
 
     botonForm = () => {
@@ -319,7 +330,7 @@ class Formulario extends Component {
                                 <Form.Group as={Col} controlId="chk14">
                                     <Form.Label>Hora final</Form.Label>
                                     <br/>
-                                    <DateTimePicker onChange={this.handleFinalDateChange} value={this.state.finalDate} disabled={this.state.finalDisabled}/>
+                                    <DateTimePicker onChange={this.handleFinalDateChange} value={this.state.finalDate}/>
                                 </Form.Group>
                             </Form.Row>
                         </Form>
@@ -391,6 +402,13 @@ class Formulario extends Component {
                                 <Form.Control/>
                             </Form.Group>
                         </Form>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button onClick={this.handlePost}>
+                            Enviar
+                        </Button>
                     </Col>
                 </Row>
             </Container>
