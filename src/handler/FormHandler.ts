@@ -11,7 +11,6 @@ import pdf from "html-pdf";
 chunk.configure(path.join(__dirname, "..", "..", "src/htmls"), {
   autoescape: true,
 });
-
 export const createFormHandler = async (req, dbConn: Connection) => {
   const form = req.body.form;
   const materials = req.body.materials;
@@ -33,10 +32,7 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
   });
   const pdfHtml = getFormPdf(form);
   pdf
-    .create(pdfHtml, {
-      format: "Letter",
-      border: "10px",
-    })
+    .create(pdfHtml, )
     .toBuffer((err, buffer) => {
       if (err) throw err;
       sendEmail({
@@ -55,6 +51,27 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
     });
   return { message: "Email enviado correctamente" };
 };
+
+export const downloadForm = async(req,res, dbConn: Connection) => {
+  console.log('Here');
+  const formId = req.params.form_id;
+  const form = await getFormDetailed(formId, dbConn);
+  const pdfHtml = getFormPdf(form);
+  pdf.create(pdfHtml,{
+    format: "Letter",
+    border: "10px",
+  }).toStream((err,stream) => {
+    if(err) {
+      throw err;
+    }
+    res.writeHead(200, {
+      'Content-Type' : 'application/force-download',
+      'Content-disposition' : 'attachment; filename=solicitud.pdf'
+    });
+    stream.pipe(res);
+
+  });
+}
 
 export const getForms = async(req, dbConn : Connection) => {
   const forms = await getFormSummary(dbConn);
