@@ -1,10 +1,14 @@
+import { Client } from "../entity/Client"
+import { PlanningOrder } from "../entity/PlanningOrder";
+import { Material } from "../entity/Material";
+
 export enum FormType {
     TIPO_1 = 'Tipo1',
     TIPO_2 = 'Tipo2'
 }
 export interface Attachment {
     filename: string;
-    content: any;
+    content: Buffer;
 }
 
 export interface EmailContent {
@@ -12,7 +16,7 @@ export interface EmailContent {
     to : string;
     subject : string;
     html? : string;
-    attachment? : Attachment[]
+    attachments? : Attachment[]
 }
 export interface FormRequest{
     description: string;
@@ -31,4 +35,41 @@ export interface FormRequest{
     finishing_hour: Date;
     officer : string;
     revisions : string;
+}
+
+export interface IForm{
+    id: string;
+    description: string;
+    physic_unit: string;
+    equipment: string;
+    serial_number: string;
+    reference: string;
+    observations: string;
+    pending_observations: string;
+    type: string;
+    vfn: boolean | string;
+    vft: boolean | string;
+    vnt: boolean | string;
+    ups_dosing: boolean | string;
+    beginning_hour: Date | string;
+    finishing_hour: Date | string;
+    officer: string;
+    revisions: string;
+    revisionsPdf? : string[];
+    created_at: Date | string;
+    client: Client;
+    planningOrder: IPlanningOrder;
+    materials: Material []
+}
+interface IPlanningOrder {
+
+    activities: boolean | string;
+
+    responsabilities: boolean | string;
+
+    considerations: boolean | string;
+
+    observations: string;
+
+    officer : string;
 }

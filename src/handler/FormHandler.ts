@@ -1,12 +1,17 @@
-import { createForm, getForm } from "../controller/FormController";
+import { createForm, getFormDetailed } from "../controller/FormController";
 import { Connection } from "typeorm";
 import { Client } from "../entity/Client";
 import { sendEmail } from "../utils/mail";
-import { Attachment } from "../types/form";
-import path from 'path';
-import chunk from 'nunjucks';
+import { Attachment, IForm } from "../types/form";
+import path from "path";
+import chunk from "nunjucks";
+import { Form } from "../entity/Form";
+import pdf from "html-pdf";
+import { resolve } from "url";
 
-chunk.configure(path.join(__dirname, '..', '..', 'htmls'), { autoescape : true});
+chunk.configure(path.join(__dirname, "..", "..", "src/htmls"), {
+  autoescape: true,
+});
 
 export const createFormHandler = async (req, dbConn: Connection) => {
   const form = req.body.form;
@@ -22,22 +27,51 @@ export const createFormHandler = async (req, dbConn: Connection) => {
 
 export const sendFormToClientHandler = async (req, dbConn: Connection) => {
   const formId = req.params.form_id;
-  const form = await getForm(formId, dbConn);
-  const htmlBody = chunk.render('getForm.html',{cliente : form.client.enterprise, email : process.env.SOURCE_EMAIL});
-  const resp = await Promise.all([getFormPdf(), getServiceControlPdf()]);
-  await sendEmail({
-    to: form.client.email,
-    from: "Atoya",
-    subject: "Confirmación de solicitud.",
-    html: htmlBody,
-    attachment : resp
+  const form = await getFormDetailed(formId, dbConn);
+  const htmlBody = chunk.render("getForm.html", {
+    cliente: form.client.enterprise,
+    email: process.env.SOURCE_EMAIL,
   });
+  const pdfHtml = getFormPdf(form);
+  pdf
+    .create(pdfHtml, {
+      format: "Letter",
+      border: "10px",
+    })
+    .toBuffer((err, buffer) => {
+      if (err) throw err;
+      sendEmail({
+        to: form.client.email,
+        from: "Atoya",
+        subject: "Confirmación de solicitud.",
+        html: htmlBody,
+        attachments: [{ filename: "atoyaSolicitud.pdf", content: buffer }],
+      })
+        .then((value) => {
+          return;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    });
+  return { message: "Email enviado correctamente" };
 };
-
-const getFormPdf = async (): Promise<Attachment> => {
-  return null;
+const getFormPdf = (form: Form) => {
+  let newForm = changeBooleansAndDates(form);
+  const pdfHtml = chunk.render("formPdf.html", newForm);
+  return pdfHtml;
 };
-
- const getServiceControlPdf = async (): Promise<Attachment> => {
-  return null;
+const changeBooleansAndDates = (form: IForm) => {
+  form.beginning_hour = form.beginning_hour.toLocaleString("es-CO");
+  form.finishing_hour = form.finishing_hour.toLocaleString("es-CO");
+  form.created_at = form.created_at.toLocaleString("es-CO");
+  form.vfn = form.vfn ? "Sí" : "No";
+  form.vft = form.vft ? "Sí" : "No";
+  form.vnt = form.vnt ? "Sí" : "No";
+  form.ups_dosing = form.ups_dosing ? "Sí" : "No";
+  form.revisionsPdf = form.revisions.split(";");
+  form.planningOrder.activities = form.planningOrder.activities? "Sí" : "No";
+  form.planningOrder.considerations = form.planningOrder.considerations? "Sí" : "No";
+  form.planningOrder.responsabilities = form.planningOrder.responsabilities? "Sí" : "No"; 
+  return form;
 };

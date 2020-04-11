@@ -1,0 +1,365 @@
+<!-- saved from url=(0065)https://www.princexml.com/howcome/2016/samples/invoice/index.html -->
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400&display=swap" rel="stylesheet">
+  <style>
+    html,
+    body,
+    div,
+    h1,
+    h2,
+    h3,
+    p,
+    blockquote,
+    ul,
+    ol,
+    li,
+    pre {
+      margin: 0;
+      padding: 0
+    }
+
+    li {
+      margin-left: 1.5em
+    }
+
+    @page {
+      size: a4;
+      margin: 20mm
+    }
+
+    @media screen {
+      body {
+        margin: 5em
+      }
+    }
+
+    body {
+      font: 11pt 'Baloo Thambi 2', serif
+    }
+
+    q::before {
+      content: "\201C";
+    }
+
+    q::after {
+      content: "\201D";
+    }
+
+    q {
+      font-style: italic
+    }
+
+    h1 {
+      font-size: 3.2em;
+      font-family: "Baloo Thambi 2";
+      padding: 0 0 2.5em;
+    }
+
+    .subtitle {
+      font-size: 1.4em;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    h2,
+    h3 {
+      font-size: 1.1em;
+      margin: 0.8em 0 0.4em
+    }
+
+    p,
+    li {
+      margin: 0.2em 0 0.4em
+    }
+
+    ul,
+    ol {
+      margin: 0.2em 0 0.4em 1.5em
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    table {
+      width: 100%;
+      margin: 1em 0;
+      padding: 0;
+      border: none;
+      border-collapse: collapse
+    }
+
+    tr,
+    td,
+    th {
+      padding: 0;
+      text-align: left;
+      border: none;
+      vertical-align: top;
+    }
+
+    tr.total td {
+      background: #ddd;
+      padding: 0.2em 0
+    }
+
+    tr.item td {
+      background: #eee;
+      padding: 0.2em 0
+    }
+
+    tr.itemDos td {
+      padding: 0.2em 0;
+      border-style: solid;
+      border-width: 0.2px;
+    }
+
+
+    tr.head td {
+      font-weight: bold;
+      padding: 1.5em 0 0.2em 0;
+      border-bottom: thin solid black
+    }
+
+    tr.instruction td {
+      padding: 3em 0 1em
+    }
+
+    table .amount {
+      text-align: right
+    }
+
+    address {
+      white-space: pre;
+      padding: 0 0 1em;
+      font-style: normal
+    }
+
+    .lessSize {
+      font-size: 0.9em;
+    }
+
+    aside {
+      float: right;
+      width: 10em
+    }
+
+    body.usd td.currency:before {
+      content: "USD\A0$"
+    }
+
+    body.eur td.currency:before {
+      content: "EUR\A0\20AC\A0"
+    }
+
+    body.aud td.currency:before {
+      content: "AUD\A0$"
+    }
+
+    body.eur tr.usd,
+    body.eur tr.aud {
+      display: none
+    }
+
+    body.usd tr.eur,
+    body.usd tr.aud {
+      display: none
+    }
+
+    body.aud tr.eur,
+    body.aud tr.usd {
+      display: none
+    }
+
+    .observations {
+      border-style: solid;
+      border-width: 0.6px;
+      border-radius: 1em;
+      padding: 4px;
+    }
+
+    .infor {
+      width: 85%;
+    }
+    .planOrder{
+      margin-top: 15px;
+    }
+    footer{
+      text-align: center;
+    }
+    .titulo{
+      font-size: 3.3em;
+      font-weight: bolder;
+    }
+    .subheader{
+      padding: 6px !important;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="usd" data-gr-c-s-loaded="true">
+
+  <aside>
+    <img width="150" src="https://i.imgur.com/qWyIrW4.jpg">
+    <address class="from">
+      Atoya SAS
+      CALLE 37 Nº 68 I 91 SUR
+      Bogotá
+      Colombia
+    </address>
+  </aside>
+
+
+  <p class="titulo">Solicitud</p>
+
+  <address class="to">
+    {{client.name}}
+    {{client.enterprise}}
+    {{client.city}}
+  </address>
+  <table>
+    <tbody>
+      <tr>
+        <td>Fecha :</td>
+        <td colspan="3">{{created_at}}</td>
+      </tr>
+      <tr>
+        <td>Identificador formulario:</td>
+        <td colspan="3">{{id}}</td>
+      </tr>
+      <tr>
+        <td>Descripción :</td>
+        <td colspan="3">{{description}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td>Unidad física :</td>
+        <td>{{physic_unit}}</td>
+        <td>Equipo :</td>
+        <td>{{equipment}}</td>
+      </tr>
+      <tr>
+        <td>Serial :</td>
+        <td>{{serial_number}}</td>
+        <td>Referencia : </td>
+        <td>{{reference}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <p class="subtitle">Revisiones y trabajos a efectuar</p>
+      <tr class="item">
+        {% for revision in revisionsPdf %}
+        <td colspan={{8/revisionsPdf.length}}>{{revision}}</td>
+        {% endfor %}
+      </tr>
+      <tr class="itemDos">
+        <td class="subheader">VFN</td>
+        <td class="subheader">{{vfn}}</td>
+        <td class="subheader">VFT</td>
+        <td class="subheader">{{vft}}</td>
+        <td class="subheader">VNT</td>
+        <td class="subheader">{{vnt}}</td>
+        <td class="subheader">Dosificador UPS</td>
+        <td class="subheader">{{ups_dosing}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <table>
+    <tbody>
+      <p class="subtitle">Materiales y repuestos</p>
+      <table>
+        <tbody>
+          <tr class="head">
+            <td>Referencia</td>
+            <td>Descripción</td>
+            <td>Cantidad</td>
+          </tr>
+          {% for material in materials %}
+          <tr class="item">
+            <td>{{material.reference}}</td>
+            <td>{{material.description}}</td>
+            <td>{{material.units}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="subtitle">Observaciones</p>
+      <div class="observations">
+        <p> {{observations}}</p>
+        <table>
+          <tbody>
+            <tr>
+              <td style="width: 20%;" class="lessSize">
+                Pendientes :
+              </td>
+              <td class="lessSize">
+                {{pending_observations}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="planOrder">
+        <p class="subtitle">Planeación de órdenes y servicios</p>
+        <table>
+          <tr>
+            <th colspan="2">Actividades de ejecución a planear</th>
+          </tr>
+          <tr class="item">
+            <td class="infor">Anotar seriales, revisión eléctrica, mecánica, limpieza y pruebas de funcionamiento,
+              lubricación y nivelación</td>
+            <td>{{planningOrder.activities}}</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2">Repuestos y herramientas necesarios.</th>
+          </tr>
+          <tr class="item">
+            <td class="infor">Herramienta de mano, soplador, aceite, paño limpieza, silicona, repuestos como fusibles,
+              bombillos, tornillera, porta espuma, válvula, tarjetas, sellos y correas</td>
+            <td>{{planningOrder.responsabilities}}</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2">Elementos de seguridad, permisos y procedimientos a considerar</th>
+          </tr>
+          <tr class="item">
+            <td class="infor">Guantes, botas de sguridad, uniforme, reporte pago seguridad social, informe, entrar por
+              funcionarios, buen trato al cliente, evitar excesos de confianza</td>
+            <td>{{planningOrder.considerations}}</td>
+          </tr>
+        </table>
+        <p>Observaciones</p>
+        <p>
+          <small>
+            {{planningOrder.observations}}
+          </small>
+        </p>
+      </div>
+      <div style="margin-top: 40px;">
+        <table>
+          <tr>
+            <td>Responsable : </td>
+            <td>{{planningOrder.officer}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <br>
+      <footer>Atoya 2020</div>
+</body>
+
+</html>
