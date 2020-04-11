@@ -23,18 +23,8 @@ class Main extends Component {
           <Navbar.Brand href="/">
             <strong>Atoya BackOffice</strong>
           </Navbar.Brand>
-          {/* <p>{this.state.fecha.getDate() + "/" + (this.state.fecha.getMonth() + 1) + "/" + this.state.fecha.getFullYear()}</p>
-          <i className="fas fa-calendar-alt"></i> */}
         </Navbar>
         <Container>
-          {/* <Row>
-          <Col xs={6} style={{ fontSize: "300%" }}>
-            A T O Y A
-          </Col>
-          <Col xs={6} className="text-right" style={{ fontSize: "300%" }}>
-            Fecha: {this.state.fecha.getDate() + "/" + (this.state.fecha.getMonth() + 1) + "/" + this.state.fecha.getFullYear()}
-          </Col>
-        </Row> */}
           <br />
           <br />
           <ListGroup className="listaEducacion">
