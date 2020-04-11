@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, Form, Button, Card, Table, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, Card, Table, Modal, Alert } from 'react-bootstrap';
 import DateTimePicker from 'react-datetime-picker';
 
 class Formulario extends Component {
     constructor() {
         super();
-        this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.handleInitialDateChange = this.handleInitialDateChange.bind(this);
+        this.handleFinalDateChange = this.handleFinalDateChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            fecha: new Date()
+            fecha: new Date(),
+            initialDate: new Date(),
+            finalDate: new Date(),
+            finalDisabled: true,
+            materials: [],
+            revisions: ["Eléctrico","Calibración","Mecánico","Capacitación","Cambio Partes","Limpieza","Actualización","Pruebas"]
         }
     }
     
-    handleTimeChange = (fecha) => {
-        console.log(fecha);   // <- prints "3600" if "01:00" is picked
-        this.setState({ fecha });
+    handleInitialDateChange = (initialDate) => {
+        console.log(initialDate);   // <- prints "3600" if "01:00" is picked
+        this.setState({ initialDate });
+        this.setState({ finalDisabled : false })
+    }
+
+    handleFinalDateChange = (finalDate) => {
+        console.log(finalDate);   // <- prints "3600" if "01:00" is picked
+        if(this.state.initialDate <= finalDate){
+            this.setState({ finalDate });
+        }
+        else{
+
+        }
     }
 
     handleShow=()=>{
@@ -31,15 +48,58 @@ class Formulario extends Component {
     }
 
     handleSubmit(e) {
-        var data = {ref: document.getElementById("ref").value, desc: document.getElementById("desc").value, cant: document.getElementById("cant").value};
-        console.log(data);
+        var data = {reference: document.getElementById("ref").value, description: document.getElementById("desc").value, units: document.getElementById("cant").value};
+        this.setState((prevState) => ({
+           materials: [...prevState.materials, data]
+        }));
         this.handleClose();
+        this.handlePost();
+    }
+
+    handlePost() {
+        var envio = {};
+        envio["form"] = {};
+        envio["form"]["description"] = document.getElementById("descripcion").value;
+        envio["form"]["physic_unit"] = document.getElementById("fisica").value;
+        envio["form"]["equipment"] = document.getElementById("equipo").value;
+        envio["form"]["serial_number"] = document.getElementById("serial").value;
+        envio["form"]["reference"] = document.getElementById("referencia").value;
+        envio["form"]["observations"] = document.getElementById("observaciones").value;
+        envio["form"]["pending_observations"] = document.getElementById("pendientes").value;
+        envio["form"]["type"] = 1;
+        envio["form"]["vfn"] = document.getElementById("chk9").checked;
+        envio["form"]["vft"] = document.getElementById("chk10").checked; 
+        envio["form"]["vnt"] = document.getElementById("chk11").checked; 
+        envio["form"]["ups_dosing"] = document.getElementById("chk12").checked;
+        envio["form"]["officer"] = document.getElementById("responsable").value;
+        var revisions = "";
+        for (let index = 1; index < 8; index++) {
+            if(document.getElementById("chk"+index).checked === true){
+                revisions += this.state.revisions[index-1] + ";";
+            }
+        }
+        if(revisions[revisions.length-1] === ";"){
+            revisions = revisions.substring(0, revisions.length - 1);
+        }
+        envio["form"]["revisions"] = revisions;
+        envio["materials"] = this.state.materials;
+        envio["client"] = {}
+        envio["client"]["name"] = document.getElementById("cliente").value;
+        envio["client"]["city"] = document.getElementById("ciudad").value;
+        envio["client"]["enterprise"] = document.getElementById("solicita").value;
+        envio["planning_order"] = {}
+        envio["planning_order"]["activities"] = document.getElementById("act").checked;
+        envio["planning_order"]["responsabilitites"] = document.getElementById("rep").checked;
+        envio["planning_order"]["considerations"] = document.getElementById("ele").checked;
+        envio["planning_order"]["observations"] = document.getElementById("aditobs").value;
+        envio["planning_order"]["officer"] = document.getElementById("responsable").value;
+        console.log(envio);
     }
 
     botonForm = () => {
         return (
             <>
-                <td key={"0"} colSpan="3" onClick={() => this.handleShow()}>Agregar</td>
+                <tr className="text-center"><td key={"0"} colSpan="3" onClick={() => this.handleShow()}>Agregar</td></tr>
                 <Modal size="lg" show={this.state.show} onHide={this.handleClose} centered ref={this.wrapper}>
                     <Modal.Header closeButton>
                         <Modal.Title>Agregar Material/Repuesto</Modal.Title>
@@ -71,6 +131,16 @@ class Formulario extends Component {
 
     tablelist = () => {
         let final = [];
+        for (let index = 0; index < this.state.materials.length; index++) {
+            const element = this.state.materials[index];
+            final.push(
+                <tr className="text-center">
+                    <td>{element.reference}</td>
+                    <td>{element.description}</td>
+                    <td>{element.units}</td>
+                </tr>
+            );
+        }
         final.push(this.botonForm());
         return final;
     }
@@ -94,41 +164,48 @@ class Formulario extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} controlId="cliente">
                                     <Form.Label>Cliente</Form.Label>
-                                    <Form.Control />
+                                    <Form.Control required/>
+                                    <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="ciudad">
                                     <Form.Label>Ciudad</Form.Label>
-                                    <Form.Control />
+                                    <Form.Control required/>
+                                    <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                 </Form.Group>
                             </Form.Row>
 
                             <Form.Group controlId="solicita">
                                 <Form.Label>Solicita</Form.Label>
-                                <Form.Control />
+                                <Form.Control required/>
+                                <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Group controlId="descripcion">
                                 <Form.Label>Descripción</Form.Label>
-                                <Form.Control />
+                                <Form.Control required/>
+                                <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                             </Form.Group>
 
                             <Form.Row>
                                 <Form.Group as={Col} controlId="fisica">
                                     <Form.Label>Unidad Física</Form.Label>
-                                    <Form.Control />
+                                    <Form.Control required/>
+                                    <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="equipo">
                                     <Form.Label>Equipo</Form.Label>
-                                    <Form.Control />
+                                    <Form.Control required/>
+                                    <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                 </Form.Group>
                             </Form.Row>
 
                             <Form.Row>
                                 <Form.Group as={Col} controlId="serial">
                                     <Form.Label>Serial</Form.Label>
-                                    <Form.Control />
+                                    <Form.Control required/>
+                                    <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="referencia">
@@ -170,10 +247,10 @@ class Formulario extends Component {
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row>
-                                        <Form.Group as={Col} controlId="chk4">
+                                        <Form.Group as={Col} controlId="chk7">
                                             <Form.Check inline type="checkbox" label="Actualización" />
                                         </Form.Group>
-                                        <Form.Group as={Col} controlId="chk5">
+                                        <Form.Group as={Col} controlId="chk8">
                                             <Form.Check inline type="checkbox" label="Pruebas" />
                                         </Form.Group>
                                     </Form.Row>
@@ -198,11 +275,9 @@ class Formulario extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="text-center">
-                                            {this.tablelist().map((e) => {
-                                                return e;
-                                            })}
-                                        </tr>
+                                        {this.tablelist().map((e) => {
+                                            return e;
+                                        })}
                                     </tbody>
                                 </Table>
                             </Card.Body>
@@ -216,44 +291,104 @@ class Formulario extends Component {
                         <Form className="text-center">
                             <Form.Row>
                                 <Form.Group as={Col} controlId="chk9">
-                                    <Form.Check inline type="checkbox" label="VFN" />
+                                    <Form.Check inline type="switch" label="VFN" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="chk10">
-                                    <Form.Check inline type="checkbox" label="VFT" />
+                                    <Form.Check inline type="switch" label="VFT" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="chk11">
-                                    <Form.Check inline type="checkbox" label="VNT" />
+                                    <Form.Check inline type="switch" label="VNT" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="chk12">
-                                    <Form.Check inline type="checkbox" label="Dosificador" />
+                                    <Form.Check inline type="switch" label="Dosificador" />
                                 </Form.Group>
                             </Form.Row>
                         </Form>
                     </Col>
                 </Row>
-                <br />
                 <br />
                 <Row>
                     <Col>
                         <Form className="text-center">
                             <Form.Row>
                                 <Form.Group as={Col} controlId="chk13">
-                                    <DateTimePicker onChange={this.handleTimeChange} value={this.state.fecha} />
+                                    <Form.Label>Hora inicial</Form.Label>
+                                    <br/>
+                                    <DateTimePicker onChange={this.handleInitialDateChange} value={this.state.initialDate} />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="chk14">
+                                    <Form.Label>Hora final</Form.Label>
+                                    <br/>
+                                    <DateTimePicker onChange={this.handleFinalDateChange} value={this.state.finalDate} disabled={this.state.finalDisabled}/>
                                 </Form.Group>
                             </Form.Row>
                         </Form>
                     </Col>
                 </Row>
                 <br />
-                <br />
                 <Row>
                     <Col>
                         <Form>
                             <Form.Group controlId="observaciones">
                                 <Form.Label>Observaciones</Form.Label>
-                                <Form.Control rows="3" />
+                                <Form.Control as="textarea" rows="3" />
+                            </Form.Group>
+                            <Form.Group controlId="pendientes">
+                                <Form.Label>Pendientes</Form.Label>
+                                <Form.Control as="textarea" rows="3" />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Card className="h-100">
+                            <Card.Header>Actividades de ejecución a planear</Card.Header>
+                            <Card.Body>
+                                <Form>
+                                    <Form.Group controlId="act">
+                                        <Form.Check inline type="switch" label="Anotar seriales, revisión eléctrica, mecánica, limpieza y pruebas de funcionamiento, lubricación y nivelación" />
+                                    </Form.Group>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className="h-100">
+                            <Card.Header>Repuestos y herramientas necesarios para alistar</Card.Header>
+                            <Card.Body>
+                                <Form>
+                                    <Form.Group controlId="rep">
+                                        <Form.Check inline type="switch" label="Herramienta de mano, soplador, aceite, paño limpieza, silicona, repuestos como fusibles, bombillos, tornillera, porta espuma, válvula, tarjetas, sellos, correos, etc." />
+                                    </Form.Group>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className="h-100">
+                            <Card.Header>Elementos de seguridad, permisos y procedimientos a considerar</Card.Header>
+                            <Card.Body>
+                                <Form>
+                                    <Form.Group controlId="ele">
+                                        <Form.Check inline type="switch" label="Guantes, botas de seguridad, uniforme, reporte pago seguridad social actualizados, informe, entrar por funcionarios, buen trato al cliente, enviar excesos de confianza, realizas inspección visual previa de trabajo" />
+                                    </Form.Group>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+                <br/>
+                <Row>
+                    <Col>
+                        <Form>
+                            <Form.Group controlId="aditobs">
+                                <Form.Label>Observaciones adicionales</Form.Label>
+                                <Form.Control as="textarea" rows="3" />
+                            </Form.Group>
+                            <Form.Group controlId="responsable">
+                                <Form.Label>Responsable</Form.Label>
+                                <Form.Control/>
                             </Form.Group>
                         </Form>
                     </Col>
