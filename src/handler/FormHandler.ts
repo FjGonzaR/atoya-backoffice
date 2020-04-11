@@ -1,4 +1,4 @@
-import { createForm, getFormDetailed } from "../controller/FormController";
+import { createForm, getFormDetailed, getFormSummary } from "../controller/FormController";
 import { Connection } from "typeorm";
 import { Client } from "../entity/Client";
 import { sendEmail } from "../utils/mail";
@@ -11,7 +11,6 @@ import pdf from "html-pdf";
 chunk.configure(path.join(__dirname, "..", "..", "src/htmls"), {
   autoescape: true,
 });
-
 export const createFormHandler = async (req, dbConn: Connection) => {
   console.log(req.body);
   const form = req.body.form;
@@ -34,10 +33,7 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
   });
   const pdfHtml = getFormPdf(form);
   pdf
-    .create(pdfHtml, {
-      format: "Letter",
-      border: "10px",
-    })
+    .create(pdfHtml, )
     .toBuffer((err, buffer) => {
       if (err) throw err;
       sendEmail({
@@ -56,6 +52,35 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
     });
   return { message: "Email enviado correctamente" };
 };
+
+export const downloadForm = async(req,res, dbConn: Connection) => {
+  console.log('Here');
+  const formId = req.params.form_id;
+  const form = await getFormDetailed(formId, dbConn);
+  const pdfHtml = getFormPdf(form);
+  pdf.create(pdfHtml,{
+    format: "Letter",
+    border: "10px",
+  }).toStream((err,stream) => {
+    if(err) {
+      throw err;
+    }
+    res.writeHead(200, {
+      'Content-Type' : 'application/force-download',
+      'Content-disposition' : 'attachment; filename=solicitud.pdf'
+    });
+    stream.pipe(res);
+
+  });
+}
+
+export const getForms = async(req, dbConn : Connection) => {
+  const forms = await getFormSummary(dbConn);
+  if(forms){
+    return forms;
+  }
+  throw 'Ocurrio un error al recopilar los formularios';
+}
 const getFormPdf = (form: Form) => {
   let newForm = changeBooleansAndDates(form);
   const pdfHtml = chunk.render("formPdf.html", newForm);

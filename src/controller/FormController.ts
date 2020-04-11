@@ -30,7 +30,11 @@ export const createForm = async (
 export const getForm = async(formId : string,dbConn : Connection) => {
     return await dbConn.manager.findOne(Form, formId);
 }
-
+export const getFormSummary = async( dbConn : Connection) => {
+  return await dbConn.manager.find(Form,{
+    relations : ['client']
+  });
+}
 export const getFormDetailed = async(formId : string,dbConn : Connection) => {
   return await dbConn.manager.findOne(Form, formId,{
     relations : ['client','planningOrder', 'materials']

@@ -3,8 +3,8 @@ import { PlanningOrder } from "../entity/PlanningOrder";
 import { Material } from "../entity/Material";
 
 export enum FormType {
-    TIPO_1 = 'Tipo1',
-    TIPO_2 = 'Tipo2'
+    TIPO_1 = 'Tintometria',
+    TIPO_2 = 'Empaques y embotellados'
 }
 export interface Attachment {
     filename: string;
