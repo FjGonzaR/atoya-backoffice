@@ -160,8 +160,8 @@ class Formulario extends Component {
     render() {
         return (
             <>
-            <Container className="createForm">
-                <Card>
+            <Container className="createForm" id="page-wrap">
+                <Card className="shadow-lg" id="formu">
                     <Card.Body>
                     <Row>
                     <Col>
@@ -169,7 +169,7 @@ class Formulario extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} controlId="cliente">
                                     <Form.Label>Cliente</Form.Label>
-                                    <Form.Control required/>
+                                    <Form.Control  required/>
                                     <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                 </Form.Group>
 
