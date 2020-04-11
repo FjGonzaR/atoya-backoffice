@@ -3,7 +3,6 @@ import { Form } from "./Form";
 
 @Entity()
 export class Client {
-
     @PrimaryGeneratedColumn()
     id: string;
 
