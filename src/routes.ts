@@ -5,6 +5,7 @@ import { Routes } from "./routes/routes";
 import {
   createFormHandler,
   sendFormToClientHandler,
+  getForms,
 } from "./handler/FormHandler";
 import { checkToken } from "./utils/jwt";
 const router = express.Router();
@@ -40,5 +41,12 @@ router.get(
   async (req, res) =>
     await wrapResponse(req, res, sendFormToClientHandler(req,getConnection()))
 );
+
+router.get(
+    Routes.ALL_FORMS,
+    checkToken,
+    async (req, res) =>
+      await wrapResponse(req, res, getForms(req,getConnection()))
+  );
 
 export default router;

@@ -1,4 +1,4 @@
-import { createForm, getFormDetailed } from "../controller/FormController";
+import { createForm, getFormDetailed, getFormSummary } from "../controller/FormController";
 import { Connection } from "typeorm";
 import { Client } from "../entity/Client";
 import { sendEmail } from "../utils/mail";
@@ -56,6 +56,14 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
     });
   return { message: "Email enviado correctamente" };
 };
+
+export const getForms = async(req, dbConn : Connection) => {
+  const forms = await getFormSummary(dbConn);
+  if(forms){
+    return forms;
+  }
+  throw 'Ocurrio un error al recopilar los formularios';
+}
 const getFormPdf = (form: Form) => {
   let newForm = changeBooleansAndDates(form);
   const pdfHtml = chunk.render("formPdf.html", newForm);
