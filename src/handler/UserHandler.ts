@@ -18,6 +18,6 @@ export const userSignUpHandler = async (req, dbConn: Connection) => {
   return { token };
 };
 
-export const dummy = async (req) => {
+export const dummy = async (req,dbConn : Connection) => {
   return { healthCheck : "good" };
 }
