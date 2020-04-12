@@ -65,7 +65,7 @@ export const downloadForm = async (req, res, dbConn: Connection) => {
   const pdfHtml = getFormPdf(form);
   pdf
     .create(pdfHtml, {
-      format: "Letter",
+      format: "A3",
       border: "10px",
     })
     .toStream((err, stream) => {
