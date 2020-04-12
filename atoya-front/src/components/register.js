@@ -6,6 +6,7 @@ import {
 } from "react-bootstrap";
 import './styles/register.css';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 
 class Register extends Component {
