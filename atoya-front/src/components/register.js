@@ -34,6 +34,7 @@ class Register extends Component {
         this.props.history.push('/main');
       })
       .catch((err) => {
+        console.log(err);
         toast(`Credenciales invalidas. Intente de nuevo`, {
           containerId: "A",
           autoClose: 1000,
