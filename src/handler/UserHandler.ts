@@ -12,7 +12,11 @@ export const userLogInHandler = async (req, dbConn: Connection) => {
 export const userSignUpHandler = async (req, dbConn: Connection) => {
   const { email, password } = req.body;
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
-    await userSignUp(email, password, dbConn);
+  {
+    if(/^\d+$/.test(password) && password.length === 6 )
+      await userSignUp(email, password, dbConn);
+    else throw 'Contraseña incorrecta'
+  }
   else throw "Su email tiene un formato inválido";
   const token = generateToken(email);
   return { token };
