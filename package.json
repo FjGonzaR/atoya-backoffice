@@ -31,7 +31,7 @@
    },
    "scripts": {
       "start": "npm run build && npm run html && npm run prod",
-      "html": "copyfiles ./src/html ./build/src",
+      "html": "copyfiles -u 1 ./src/htmls/* ./build/src",
       "prod": "ts-node build/index.js",
       "start:dev": "ts-node-dev index.ts",
       "build": "npm run ts:build",
