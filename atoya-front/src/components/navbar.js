@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { slide as Menu } from "react-burger-menu";
-import { Image } from 'react-bootstrap';
-import Logo from "../Captura.PNG";
 import './styles/navbar.css';
 export default class navbar extends Component {
   cerrarSesion = () => {
@@ -11,18 +9,18 @@ export default class navbar extends Component {
   render() {
     return (
       <Menu >
-        <strong>ATOYA BACKOFFICE</strong>
-        <a id="home" className="menu-item" href="/main">
-          Formularios
+        <strong id="navb-title">ATOYA BACKOFFICE</strong>
+        <a id="formularios" className="menu-item justify-content-between" href="/main">
+        <i class="fas fa-align-left"></i> Formularios
         </a>
-        <a id="about" className="menu-item" href="/about">
-          Recordatorios
+        <a id="recordatorios" className="menu-item" href="/about">
+        <i class="fas fa-bell"></i> Recordatorios
         </a>
-        <a id="about" className="menu-item" href="/register">
-          Usuarios
+        <a id="usuarios" className="menu-item" href="/register">
+        <i class="fas fa-user-friends"></i> Usuarios
         </a>
-        <a id="about" className="menu-item" onClick={this.cerrarSesion}>
-          Cerrar Sesion
+        <a id="logout" className="menu-item" onClick={this.cerrarSesion}>
+        <i class="fas fa-door-open"></i> Cerrar sesión
         </a>
       </Menu>
     );

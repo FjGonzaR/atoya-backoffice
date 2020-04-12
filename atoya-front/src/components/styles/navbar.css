@@ -56,7 +56,8 @@
 
   .menu-item{
     color: #ffffff !important;
-    padding: 0.3em;
+    padding: 0.5em;
+    text-decoration: none !important;
   }
   
   /* Individual item */
@@ -72,4 +73,10 @@
   #page-wrap {  
     /* Prevent sidebar from showing a scrollbar on page */
     overflow: auto;
+  }
+  #navb-title{
+    margin-bottom: 10px;
+  }
+  .fas{
+    margin : 5px
   }
