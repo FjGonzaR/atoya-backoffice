@@ -9,7 +9,6 @@ import {
   JoinColumn,
 } from "typeorm";
 import { FormType } from "../types/form";
-import { ServiceControl } from "./ServiceControl";
 import { Material } from "./Material";
 import { Client } from "./Client";
 import { PlanningOrder } from "./PlanningOrder";
@@ -80,12 +79,6 @@ export class Form {
     nullable: true,
   })
   officer: string;
-
-  @OneToOne((type) => ServiceControl, (serviceControl) => serviceControl.form, {
-    nullable: true,
-  })
-  @JoinColumn()
-  serviceControl: ServiceControl;
 
   @OneToOne((type) => PlanningOrder, (planningOrder) => planningOrder.form, {
     nullable: true,
