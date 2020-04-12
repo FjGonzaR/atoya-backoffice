@@ -61,7 +61,7 @@ router.get(
   Routes.DUMMY,
   checkToken,
   async (req, res) =>
-    await wrapResponse(req, null, dummy(req,res,getConnection()))
+    await wrapResponse(req, null, dummy(req))
 );
 
 export default router;
