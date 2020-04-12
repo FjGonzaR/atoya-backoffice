@@ -3,6 +3,8 @@ import { Container, Row, Col, Form, Button, Card, Table, Modal } from 'react-boo
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import "./styles/form.css";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Formulario extends Component {
     constructor() {
@@ -93,14 +95,28 @@ class Formulario extends Component {
         envio["planning_order"]["observations"] = document.getElementById("aditobs").value;
         envio["planning_order"]["officer"] = document.getElementById("responsable").value;
         
-        console.log(envio);
         if(localStorage.getItem("token") != null){
             axios.post("https://atoya-app.herokuapp.com/form", envio, {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
                 .then(res =>{
-                    console.log(res);
+                    toast('¡Formulario creado exitosamente!', {
+                        containerId : 'A',
+                        position: "bottom-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true
+                    });  
                 })
                 .catch(err =>{
-                    console.log(err);
+                    toast(`No se suministró correctamente la información. Intente de nuevo`, {
+                        containerId: "A",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                      });
                 })
         }
         else {
