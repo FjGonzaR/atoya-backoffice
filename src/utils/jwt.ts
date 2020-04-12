@@ -22,7 +22,7 @@ export const checkToken = ( req, res, next ) => {
         // de lo contrario, permite a la solicitud continuar
         if( err ) 
         {
-          return res.status(400).json( {
+          return res.status(401).json( {
             success: false,
             message: 'Token is not valid'
           } );
@@ -43,7 +43,7 @@ export const checkToken = ( req, res, next ) => {
             // Si no pasa la validación, un mensaje de error es retornado
             // de lo contrario, permite a la solicitud continuar
             if( err ) {
-              return res.status(400).json( {
+              return res.status(401).json( {
                 success: false,
                 message: 'Token is not valid'
               } );
@@ -57,7 +57,7 @@ export const checkToken = ( req, res, next ) => {
     }
   } else 
   {
-    return res.status(400).json( {
+    return res.status(401).json( {
       success: false,
       message: 'Auth token is not supplied'
     } );
