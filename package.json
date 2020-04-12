@@ -4,7 +4,6 @@
    "description": "Atoya backoffice app.",
    "devDependencies": {
       "@types/node": "^8.0.29",
-      "copyfiles": "^2.2.0",
       "ts-node-dev": "^1.0.0-pre.44",
       "typescript": "3.3.3333"
    },
@@ -17,16 +16,17 @@
       "@types/nodemailer": "^6.4.0",
       "@types/nunjucks": "^3.1.3",
       "body-parser": "^1.18.1",
+      "copyfiles": "^2.2.0",
       "cors": "^2.8.5",
       "express": "^4.15.4",
       "html-pdf": "^2.2.0",
       "jsonwebtoken": "^8.5.1",
+      "node": "10.16.1",
       "nodemailer": "^6.4.6",
       "nunjucks": "^3.2.1",
-      "ts-node": "^3.3.0",
-      "node": "10.16.1",
       "pg": "^7.18.2",
       "reflect-metadata": "^0.1.10",
+      "ts-node": "^3.3.0",
       "typeorm": "0.2.24",
       "typescript": "3.3.3333"
    },
