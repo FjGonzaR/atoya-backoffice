@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { saveAs } from "file-saver";
 import "./main.css";
+import { toast } from 'react-toastify';
 
 class Main extends Component {
   constructor() {
@@ -133,7 +134,14 @@ class Main extends Component {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          toast(`Se ha enviado el correo exitosamente`, {
+            containerId: "A",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
         })
         .catch((err) => {
           console.log(err);

@@ -28,7 +28,7 @@ class Login extends Component {
       .catch((err) => {
         toast(`Credenciales incorrectas. Intente de nuevo`, {
           containerId: "A",
-          autoClose: 1000,
+          autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

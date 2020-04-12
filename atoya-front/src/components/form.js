@@ -86,7 +86,7 @@ class Formulario extends Component {
         envio["client"] = {}
         envio["client"]["name"] = document.getElementById("solicita").value;
         envio["client"]["city"] = document.getElementById("ciudad").value;
-        envio["client"]["email"] = "email@gmail.com";
+        envio["client"]["email"] = document.getElementById("correo").value;
         envio["client"]["enterprise"] = document.getElementById("cliente").value;
         envio["planning_order"] = {}
         envio["planning_order"]["activities"] = document.getElementById("act").checked;
@@ -191,6 +191,12 @@ class Formulario extends Component {
                                             <Form.Group as={Col} controlId="cliente">
                                                 <Form.Label>Cliente</Form.Label>
                                                 <Form.Control required />
+                                                <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
+                                            </Form.Group>
+
+                                            <Form.Group as={Col} controlId="correo">
+                                                <Form.Label>Correo</Form.Label>
+                                                <Form.Control type="email" required />
                                                 <Form.Control.Feedback type="invalid">Por favor llena este campo</Form.Control.Feedback>
                                             </Form.Group>
 

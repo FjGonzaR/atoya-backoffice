@@ -32,10 +32,17 @@ class Register extends Component {
       { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") } })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        this.props.history.push('/main');
+        toast(`Usuario registrado con éxito`, {
+          containerId: "A",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       })
       .catch((err) => {
-        toast(`Credenciales invalidas. Intente de nuevo`, {
+        toast(`Credenciales inválidas. Intente de nuevo`, {
           containerId: "A",
           autoClose: 1000,
           hideProgressBar: false,
