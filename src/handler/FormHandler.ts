@@ -24,7 +24,7 @@ export const createFormHandler = async (req, dbConn: Connection) => {
 };
 
 export const sendFormToClientHandler = async (req, dbConn: Connection) => {
-  const formId = req.params.form_id;
+  const formId = req.params.id;
   const form = await getFormDetailed(formId, dbConn);
   const htmlBody = chunk.render("getForm.html", {
     cliente: form.client.enterprise,
@@ -53,7 +53,7 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
 };
 
 export const downloadForm = async(req,res, dbConn: Connection) => {
-  const formId = req.params.form_id;
+  const formId = req.params.id;
   const form = await getFormDetailed(formId, dbConn);
   const pdfHtml = getFormPdf(form);
   pdf.create(pdfHtml,{

@@ -24,6 +24,9 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    if(localStorage.getItem("token") == null){
+      this.props.history.push("/");
+    }
     axios.get("https://atoya-app.herokuapp.com/forms", { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") } })
       .then(res => {
         var forms = [];
@@ -31,7 +34,11 @@ class Main extends Component {
           forms.push({ id: e.id, client: e.client, created_at: new Date(e.created_at) });
         });
         this.setState({ forms });
-        this.setState({ formsJSX:this.renderForms()});
+        this.setState({ formsJSX: this.renderForms() });
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.history.push("/");
       })
   }
 
@@ -43,7 +50,7 @@ class Main extends Component {
         <ListGroup.Item key={element.id}>
           <Row className="justify-content-center text-center">
             <Col xs={8}>
-              <h1>{element.client.enterprise + " - " + element.client.name + " - " + element.created_at.getDate()+"/"+(element.created_at.getMonth()+1)+"/"+element.created_at.getFullYear()}</h1>
+              <h1>{element.client.enterprise + " - " + element.client.name + " - " + element.created_at.getDate() + "/" + (element.created_at.getMonth() + 1) + "/" + element.created_at.getFullYear()}</h1>
             </Col>
             <Col xs={2}>
               <Button onClick={(e) => this.downloadPDF(e)} id={`a${element.id}`} className="btn atoyaButton">Descargar PDF</Button>
@@ -61,7 +68,7 @@ class Main extends Component {
   downloadPDF = (e) => {
     e.preventDefault();
     if (localStorage.getItem("token") != null) {
-      axios.get(`https://atoya-app.herokuapp.com/form/${e.target.id.substring(1,e.target.id.length)}/download`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") }, responseType: 'blob' })
+      axios.get(`http://localhost:5000/form/${e.target.id.substring(1, e.target.id.length)}/download`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") }, responseType: 'blob' })
         .then(res => {
           const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
           saveAs(pdfBlob, "newPdf.pdf");
@@ -79,7 +86,7 @@ class Main extends Component {
   sendEmail = (e) => {
     e.preventDefault();
     if (localStorage.getItem("token") != null) {
-      axios.get(`https://atoya-app.herokuapp.com/form/${e.target.id.substring(1,e.target.id.length)}/send`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") }})
+      axios.get(`https://atoya-app.herokuapp.com/form/${e.target.id.substring(1, e.target.id.length)}/send`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") } })
         .then(res => {
           console.log(res.data);
         })

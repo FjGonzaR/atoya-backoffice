@@ -117,10 +117,11 @@ class Formulario extends Component {
                         pauseOnHover: true,
                         draggable: true,
                       });
-                })
+                });
         }
         else {
             console.log("NO HAY TOKEN VALIDO");
+            this.props.history.push("/");
         }
     }
 
