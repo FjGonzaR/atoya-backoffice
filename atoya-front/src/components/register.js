@@ -16,14 +16,8 @@ class Register extends Component {
         if (e.target.elements.usr.value.length === 0) {
             newmsg += "El usuario ingresado es inválido\n";
         }
-        if (e.target.elements.mail.value.length === 0) {
-            newmsg += "El email ingresado es inválido\n";
-        }
-        if (e.target.elements.pw.value.length !== 8 || !e.target.elements.pw.value.match(/^\d+$/)) {
+        if (e.target.elements.pw.value.length !== 6 || !e.target.elements.pw.value.match(/^\d+$/)) {
             newmsg += "La contraseña ingresada es inválida\n";
-        }
-        if (!(e.target.elements.pw.value === e.target.elements.cpw.value)) {
-            newmsg += "Las dos contraseñas no concuerdan\n";
         }
         if (newmsg === "") {
             //crear usuario

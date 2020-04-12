@@ -40,7 +40,7 @@ class Main extends Component {
           <br />
           <br />
           <ListGroup className="listaEducacion">
-            <ListGroup.Item className="itemHover">
+            <ListGroup.Item action>
               <Row className="justify-content-center text-center">
                 <Col xs={8}>
                   <h1>04/02/2020 - Empresa1</h1>
