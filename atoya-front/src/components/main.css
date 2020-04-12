@@ -1,7 +1,6 @@
 .listaEducacion{
     font-weight: 500;
-    margin-top: 2px;
-    padding-left: 2px;
+    margin: 5px;
     font-size: 1.5vw;
 }
 
@@ -11,4 +10,33 @@
 }
 .fa-calendar-alt{
     color: rgb(112, 112, 112);
+}
+.badge-pill{
+    background-color: #0f744d;
+    color : white;
+}
+.enterprise{
+    font-size: x-large;
+}
+.forms{
+    margin-bottom: 5px;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    border-radius: 12px;
+}
+.colBotonCrear{
+    margin: 6px;
+}
+#title{
+    font-size: xx-large;
+}
+#formsContainer{
+    background-color: #fcf7f7;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    padding: 60px;
+}
+#formListBody{
+    border-radius: 15px;
+    border: none;
 }
