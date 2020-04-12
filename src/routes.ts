@@ -1,6 +1,6 @@
 import express from "express";
 import { getConnection } from "typeorm";
-import { userLogInHandler, userSignUpHandler } from "./handler/UserHandler";
+import { userLogInHandler, userSignUpHandler, dummy } from "./handler/UserHandler";
 import { Routes } from "./routes/routes";
 import {
   createFormHandler,
@@ -50,11 +50,18 @@ router.get(
       await wrapResponse(req, res, getForms(req,getConnection()))
   );
 
-  router.get(
-    Routes.DOWNLOAD,
-    checkToken,
-    async (req, res) =>
-      await wrapResponse(req, null, downloadForm(req,res,getConnection()))
-  );
+router.get(
+  Routes.DOWNLOAD,
+  checkToken,
+  async (req, res) =>
+    await wrapResponse(req, null, downloadForm(req,res,getConnection()))
+);
+
+router.get(
+  Routes.DUMMY,
+  checkToken,
+  async (req, res) =>
+    await wrapResponse(req, null, dummy(req,res,getConnection()))
+);
 
 export default router;

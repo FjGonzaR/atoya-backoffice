@@ -68,7 +68,7 @@ class Main extends Component {
   downloadPDF = (e) => {
     e.preventDefault();
     if (localStorage.getItem("token") != null) {
-      axios.get(`http://localhost:5000/form/${e.target.id.substring(1, e.target.id.length)}/download`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") }, responseType: 'blob' })
+      axios.get(`https://atoya-app.herokuapp.com/form/${e.target.id.substring(1, e.target.id.length)}/download`, { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") }, responseType: 'blob' })
         .then(res => {
           const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
           saveAs(pdfBlob, "newPdf.pdf");

@@ -8,5 +8,6 @@ export enum Routes {
     DOWNLOAD = '/form/:id/download',
     CREATE_REMINDER = '/reminder',
     UPDATE_REMINDER = '/reminder/:id',
-    ALL_REMINDERS = '/reminders'
+    ALL_REMINDERS = '/reminders',
+    DUMMY = "/"
 }

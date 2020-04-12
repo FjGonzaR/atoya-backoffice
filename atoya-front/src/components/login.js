@@ -13,6 +13,16 @@ class Login extends Component {
   state = {
     confirmed: false,
   };
+
+  componentDidMount() {
+    if(localStorage.get("token") != null){
+      axios.get("https://atoya-app.herokuapp.com/", {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
+        .then((res) =>{
+          this.props.history.push("/main");
+        });
+    }
+  }
+
   validateLogin = (e) => {
     e.preventDefault();
     axios

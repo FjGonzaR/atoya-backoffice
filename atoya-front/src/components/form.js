@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, Card, Table, Modal } from 'react-boo
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import "./styles/form.css";
-import {toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class Formulario extends Component {

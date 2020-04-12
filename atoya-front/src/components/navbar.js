@@ -11,16 +11,16 @@ export default class navbar extends Component {
       <Menu >
         <strong id="navb-title">ATOYA BACKOFFICE</strong>
         <a id="formularios" className="menu-item justify-content-between" href="/main">
-        <i class="fas fa-align-left"></i> Formularios
+        <i className="fas fa-align-left"></i> Formularios
         </a>
         <a id="recordatorios" className="menu-item" href="/about">
-        <i class="fas fa-bell"></i> Recordatorios
+        <i className="fas fa-bell"></i> Recordatorios
         </a>
         <a id="usuarios" className="menu-item" href="/register">
-        <i class="fas fa-user-friends"></i> Usuarios
+        <i className="fas fa-user-friends"></i> Usuarios
         </a>
         <a id="logout" className="menu-item" onClick={this.cerrarSesion}>
-        <i class="fas fa-door-open"></i> Cerrar sesión
+        <i className="fas fa-door-open"></i> Cerrar sesión
         </a>
       </Menu>
     );

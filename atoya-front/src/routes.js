@@ -14,15 +14,15 @@ export const makeMainRoutes = () => {
         <Route exact path="/" render={(props) => <Login {...props} />} />
         <Route path="*">
             <div id="outer-container">
-            <Navbar  pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }/>
-          <Switch id="page-wrap">
-            <Route path="/form" render={(props) => <Formulario {...props} />} />
-            <Route
-              path="/register"
-              render={(props) => <Register {...props} />}
-            />
-            <Route path="/main" render={(props) => <Main {...props} />} />
-          </Switch>
+            <Navbar history={history} pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }/>
+            <Switch id="page-wrap">
+              <Route path="/form" render={(props) => <Formulario {...props} />} />
+              <Route
+                path="/register"
+                render={(props) => <Register {...props} />}
+              />
+              <Route path="/main" render={(props) => <Main {...props} />} />
+            </Switch>
             </div>
         </Route>
       </Switch>
