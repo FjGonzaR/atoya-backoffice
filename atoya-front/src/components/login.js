@@ -15,7 +15,7 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    if(localStorage.get("token") != null){
+    if(localStorage.getItem("token") != null){
       axios.get("https://atoya-app.herokuapp.com/", {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
         .then((res) =>{
           this.props.history.push("/main");
