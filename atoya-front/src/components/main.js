@@ -30,7 +30,6 @@ class Main extends Component {
       .then((res) => {
         var forms = [];
         res.data.map((e) => {
-          console.log(e);
           forms.push({
             id: e.id,
             client: e.client,
@@ -51,7 +50,6 @@ class Main extends Component {
     var ret = [];
     for (let index = 0; index < this.state.forms.length; index++) {
       const element = this.state.forms[index];
-      console.log(element);
       ret.push(
         <Card className="forms" key={element.id}>
           <Row className="card-body justify-content-between align-items-center text-center">
@@ -69,7 +67,7 @@ class Main extends Component {
                 onClick={(e) => this.downloadPDF(e)}
                 id={`a${element.id}`}
                 className="btn atoyaButton"
-              >Descargar PDF <i class="fas fa-file-pdf"></i>
+              >Descargar PDF <i className="fas fa-file-pdf"></i>
               </Button>
             </Col>
             <Col xs={2}>
@@ -78,7 +76,7 @@ class Main extends Component {
                 id={`b${element.id}`}
                 className="btn atoyaButton"
               >
-                Enviar correo <i class="fas fa-envelope-open-text"></i>
+                Enviar correo <i className="fas fa-envelope-open-text"></i>
               </Button>
             </Col>
           </Row>

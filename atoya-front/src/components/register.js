@@ -28,13 +28,13 @@ class Register extends Component {
       .post("https://atoya-app.herokuapp.com/signup", {
         email: e.target.elements.usr.value,
         password: e.target.elements.pw.value,
-      })
+      },
+      { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") } })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         this.props.history.push('/main');
       })
       .catch((err) => {
-        console.log(err);
         toast(`Credenciales invalidas. Intente de nuevo`, {
           containerId: "A",
           autoClose: 1000,
