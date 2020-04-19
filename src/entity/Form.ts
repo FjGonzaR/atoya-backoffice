@@ -7,15 +7,16 @@ import {
   OneToMany,
   ManyToOne,
   JoinColumn,
+  BeforeInsert,
+  PrimaryColumn,
 } from "typeorm";
-import { FormType } from "../types/form";
 import { Material } from "./Material";
 import { Client } from "./Client";
 import { PlanningOrder } from "./PlanningOrder";
 
 @Entity()
 export class Form {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn()
   id: string;
 
   @Column()
@@ -33,32 +34,33 @@ export class Form {
   @Column()
   reference: string;
 
+  //observaciones y hallazgos
   @Column()
   observations: string;
 
   @Column()
   pending_observations: string;
 
-  @Column({
-    type: "enum",
-    enum: FormType,
-  })
-  type: FormType;
+  @Column()
+  precedents : string;
+
+  @Column()
+  type: string;
 
   @Column({
     default: false,
   })
-  vfn: boolean;
+  vfn: number;
 
   @Column({
     default: false,
   })
-  vft: boolean;
+  vft: number;
 
   @Column({
     default: false,
   })
-  vnt: boolean;
+  vnt: number;
 
   @Column({
     default: false,
@@ -100,4 +102,8 @@ export class Form {
 
   @CreateDateColumn()
   created_at: Date;
+  @BeforeInsert()
+  defineId() {
+    this.id = `${this.created_at.getFullYear()}-${this.created_at.getMonth()+1}-${this.created_at.getDate()}/${this.client.enterprise}`;
+  }
 }

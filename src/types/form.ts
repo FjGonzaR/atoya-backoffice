@@ -1,10 +1,5 @@
 import { Client } from "../entity/Client"
 import { Material } from "../entity/Material";
-
-export enum FormType {
-    TIPO_1 = 'Tintometria',
-    TIPO_2 = 'Empaques y embotellados'
-}
 export interface Attachment {
     filename: string;
     content: Buffer;
@@ -25,10 +20,9 @@ export interface FormRequest{
     reference: string;
     observations: string;
     pending_observations: string;
-    type: FormType;
-    vfn: boolean;
-    vft: boolean;
-    vnt: boolean;
+    vfn: number;
+    vft: number;
+    vnt: number;
     ups_dosing: boolean;
     beginning_hour: Date;
     finishing_hour: Date;
@@ -46,15 +40,15 @@ export interface IForm{
     observations: string;
     pending_observations: string;
     type: string;
-    vfn: boolean | string;
-    vft: boolean | string;
-    vnt: boolean | string;
+    vfn: number | string;
+    vft: number | string;
+    vnt: number | string;
     ups_dosing: boolean | string;
     beginning_hour: Date | string;
     finishing_hour: Date | string;
     officer: string;
     revisions: string;
-    revisionsPdf? : string[];
+    revisionsPdf? : string;
     created_at: Date | string;
     client: Client;
     planningOrder: IPlanningOrder;

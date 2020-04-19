@@ -5,6 +5,10 @@ import { Form } from "./Form";
 export class Material {
   @PrimaryGeneratedColumn()
   id: string;
+
+  @Column({ length: 30, nullable: true })
+  sap_code: string;
+
   @Column({ length: 50, nullable: true })
   reference: string;
 
