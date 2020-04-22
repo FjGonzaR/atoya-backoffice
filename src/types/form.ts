@@ -39,6 +39,7 @@ export interface IForm{
     reference: string;
     observations: string;
     pending_observations: string;
+    precedents : string;
     type: string;
     vfn: number | string;
     vft: number | string;
@@ -62,7 +63,7 @@ interface IPlanningOrder {
 
     considerations: boolean | string;
 
-    observations: string;
+    conclusions: string;
 
     officer : string;
 }

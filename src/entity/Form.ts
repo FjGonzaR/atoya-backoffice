@@ -41,25 +41,21 @@ export class Form {
   @Column()
   pending_observations: string;
 
-  @Column()
+  @Column({
+    nullable : true
+  })
   precedents : string;
 
   @Column()
   type: string;
 
-  @Column({
-    default: false,
-  })
+  @Column()
   vfn: number;
 
-  @Column({
-    default: false,
-  })
+  @Column()
   vft: number;
 
-  @Column({
-    default: false,
-  })
+  @Column()
   vnt: number;
 
   @Column({
