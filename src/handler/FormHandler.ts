@@ -37,7 +37,10 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
   });
   const pdfHtml = getFormPdf(form);
   const serviceControl = fs.readFileSync("./src/htmls/Encuesta.pdf");
-  pdf.create(pdfHtml).toBuffer((err, buffer) => {
+  pdf.create(pdfHtml,{
+    format: "A3",
+    border: "10px",
+  }).toBuffer((err, buffer) => {
     if (err) throw err;
     sendEmail({
       to: form.client.email,
@@ -96,11 +99,11 @@ const changeBooleansAndDates = (form: IForm) => {
   form.beginning_hour = form.beginning_hour.toLocaleString("es-CO");
   form.finishing_hour = form.finishing_hour.toLocaleString("es-CO");
   form.created_at = form.created_at.toLocaleString("es-CO");
-  form.vfn = form.vfn ? "Sí" : "No";
-  form.vft = form.vft ? "Sí" : "No";
-  form.vnt = form.vnt ? "Sí" : "No";
+  form.vfn = form.vfn ? form.vfn : "No";
+  form.vft = form.vft ? form.vft : "No";
+  form.vnt = form.vnt ? form.vnt : "No";
   form.ups_dosing = form.ups_dosing ? "Sí" : "No";
-  form.revisionsPdf = form.revisions.split(";");
+  form.revisionsPdf = form.revisions.replace(";", ",");
   form.planningOrder.activities = form.planningOrder.activities ? "Sí" : "No";
   form.planningOrder.considerations = form.planningOrder.considerations ? "Sí" : "No";
   form.planningOrder.responsabilities = form.planningOrder.responsabilities ? "Sí" : "No";

@@ -3,8 +3,6 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
   <style>
     html,
     body,
@@ -25,7 +23,8 @@
     li {
       margin-left: 1.5em
     }
-    body{
+
+    body {
       padding: 10px;
     }
 
@@ -39,6 +38,7 @@
         margin: 5em
       }
     }
+
     q::before {
       content: "\201C";
     }
@@ -50,12 +50,11 @@
     q {
       font-style: italic
     }
-    body{
-      font-family: "Baloo Thambi 2";
-    }
+
+    body {}
+
     .subtitle {
       font-size: 1.0em;
-      font-family: 'Baloo Tamma 2', cursive !important;
       text-align: center;
     }
 
@@ -118,10 +117,10 @@
       padding: 1.0em 0 0.2em 0;
       border-bottom: solid black
     }
-    .header{
+
+    .header {
       font-size: 0.7em;
-      font-family: 'Baloo Tamma 2', cursive !important;
-      
+
     }
 
     tr.instruction td {
@@ -183,18 +182,21 @@
     .infor {
       width: 85%;
     }
-    .planOrder{
+
+    .planOrder {
       margin-top: 15px;
     }
-    footer{
+
+    footer {
       text-align: center;
     }
-    .titulo{
+
+    .titulo {
       font-size: 3.3em;
       font-weight: bolder;
-      font-family: 'Baloo Tamma 2', cursive !important;
     }
-    .subheader{
+
+    .subheader {
       padding: 6px !important;
       text-align: center;
     }
@@ -253,14 +255,10 @@
       </tr>
     </tbody>
   </table>
+  <p class="subtitle">Revisiones y trabajos a efectuar</p>
+   Revisiones : {{revision}}.
   <table>
     <tbody>
-      <p class="subtitle">Revisiones y trabajos a efectuar</p>
-      <tr class="item">
-        {% for revision in revisionsPdf %}
-        <td colspan={{8/revisionsPdf.length}}>{{revision}}</td>
-        {% endfor %}
-      </tr>
       <tr class="itemDos">
         <td class="subheader">VFN</td>
         <td class="subheader">{{vfn}}</td>
@@ -280,12 +278,14 @@
       <table>
         <tbody>
           <tr class="head">
+            <td class="header">Código SAP</td>
             <td class="header">Referencia</td>
             <td class="header">Descripción</td>
             <td class="header">Cantidad</td>
           </tr>
           {% for material in materials %}
           <tr class="item">
+            <td>{{material.sap_code}}</td>
             <td>{{material.reference}}</td>
             <td>{{material.description}}</td>
             <td>{{material.units}}</td>
@@ -293,7 +293,12 @@
           {% endfor %}
         </tbody>
       </table>
-      <p class="subtitle">Observaciones</p>
+      <p class="subtitle">Antecedentes y estado inicial</p>
+      <div class="observations">
+        <p> {{precedents}}</p>
+      </div>
+
+      <p class="subtitle">Observaciones y hallazgos</p>
       <div class="observations">
         <p> {{observations}}</p>
         <table>
@@ -341,10 +346,10 @@
             <td>{{planningOrder.considerations}}</td>
           </tr>
         </table>
-        <p>Observaciones</p>
+        <p>Conclusiones y recomendaciones</p>
         <p>
           <small>
-            {{planningOrder.observations}}
+            {{planningOrder.conclusions}}
           </small>
         </p>
       </div>

@@ -17,7 +17,7 @@ export class PlanningOrder {
     considerations: boolean;
 
     @Column({nullable : true})
-    observations: string;
+    conclusions: string;
 
     @Column({
         nullable : true,
