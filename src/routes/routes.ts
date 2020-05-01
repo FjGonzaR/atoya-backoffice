@@ -1,6 +1,7 @@
 export enum Routes {
-    FORM = '/form/:id',
-    CREATE_FROM = '/form',
+    GET_FORM = '/form/:id',
+    FORM = '/form',
+    MODIFY_FORM = '/form/:id',
     LOGIN = '/login',
     SIGNUP = '/signup',
     ALL_FORMS = '/forms',

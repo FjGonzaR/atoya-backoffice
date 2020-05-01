@@ -10,7 +10,8 @@ export const createForm = async (
   materials: Partial<Material[]>,
   planningOrderArg: PlanningOrder,
   clientArg: Client,
-  dbConn: Connection
+  dbConn: Connection,
+  formId?: string
 ) => {
   let client = await dbConn.manager.findOne(Client, {
     where: { enterprise: clientArg.enterprise },
@@ -19,7 +20,8 @@ export const createForm = async (
     clientArg.forms = [];
     client = await dbConn.manager.save(clientArg);
   }
-  let form = new Form();
+  const formu = await dbConn.manager.findOne(Form, formId) ;
+  let form = formu? formu : new Form();
   form.client = client;
   form.planningOrder = planningOrderArg;
   form = Object.assign(form, formArg);
@@ -27,19 +29,23 @@ export const createForm = async (
   form.materials = materials;
   return await dbConn.manager.save(form);
 };
-export const getForm = async(formId : string,dbConn : Connection) => {
-    return await dbConn.manager.findOne(Form, formId);
-}
-export const getFormSummary = async( dbConn : Connection) => {
-  return await dbConn.manager.find(Form,{
-    relations : ['client']
+export const getForm = async (formId: string, dbConn: Connection) => {
+  return await dbConn.manager.findOne(Form, formId);
+};
+export const getFormSummary = async (dbConn: Connection) => {
+  return await dbConn.manager.find(Form, {
+    relations: ["client"],
   });
-}
-export const getFormDetailed = async(formId : string,dbConn : Connection) => {
-  return await dbConn.manager.findOne(Form, formId,{
-    relations : ['client','planningOrder', 'materials']
+};
+export const getFormDetailed = async (formId: string, dbConn: Connection) => {
+  return await dbConn.manager.findOne(Form, formId, {
+    relations: ["client", "planningOrder", "materials"],
   });
-}
+};
+export const deleteForm = async (formId: string, dbConn: Connection) => {
+  return await dbConn.getRepository(Form).delete(formId);
+};
+
 const createMaterials = (materials: Material[], form: Form) => {
   return materials.map((material) => {
     material.form = form;

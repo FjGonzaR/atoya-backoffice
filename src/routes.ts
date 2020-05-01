@@ -9,6 +9,7 @@ import {
   downloadForm,
 } from "./handler/FormHandler";
 import { checkToken } from "./utils/jwt";
+import { create } from "domain";
 const router = express.Router();
 const wrapResponse = async (req, res, method) => {
   try {
@@ -31,10 +32,20 @@ router.post(
     await wrapResponse(req, res, userSignUpHandler(req, getConnection()))
 );
 router.post(
-  Routes.CREATE_FROM,
+  Routes.FORM,
   checkToken,
   async (req, res) =>
     await wrapResponse(req, res, createFormHandler(req, getConnection()))
+);
+router.put(
+  Routes.MODIFY_FORM,
+  async (req,res) => 
+    await wrapResponse(req,res, createFormHandler(req,getConnection()))
+);
+router.delete(
+  Routes.MODIFY_FORM,
+  async (req,res) => 
+    await wrapResponse(req,res, createFormHandler(req,getConnection()))
 );
 router.get(
   Routes.SEND_TO_CLIENT,
