@@ -68,7 +68,7 @@ class Main extends Component {
                 onClick={(e) => this.downloadPDF(e)}
                 id={`a${element.id}`}
                 className="btn atoyaButton"
-              >Descargar PDF <i className="fas fa-file-pdf"></i>
+              ><i className="fas fa-file-pdf"></i>
               </Button>
             </Col>
             <Col xs={2}>
@@ -76,14 +76,57 @@ class Main extends Component {
                 onClick={(e) => this.sendEmail(e)}
                 id={`b${element.id}`}
                 className="btn atoyaButton"
-              >
-                Enviar correo <i className="fas fa-envelope-open-text"></i>
+              ><i className="fas fa-envelope-open-text"></i>
               </Button>
             </Col>
           </Row>
         </Card>
       );
     }
+    //TEMPORAL
+    ret.push(
+      <Card className="forms" key={"temporal"}>
+        <Row className="card-body justify-content-between align-items-center text-center">
+          <Col xs={2}>
+            <small>{"hoy"}</small>
+            <Badge pill>
+              {"tipo x"}
+            </Badge>
+          </Col>
+          <Col xs={6}>
+            <h1 className="enterprise">{"empresa x"}</h1>
+          </Col>
+          <Col xs={1}>
+            <Button
+              id={`a${"aa"}`}
+              className="btn atoyaButton"
+            ><i className="fas fa-pencil-alt"></i>
+            </Button>
+          </Col>
+          <Col xs={1}>
+            <Button
+              id={`b${"aa"}`}
+              className="btn atoyaButton"
+            ><i className="fas fa-envelope-open-text"></i>
+            </Button>
+          </Col>
+          <Col xs={1}>
+            <Button
+              id={`c${"aa"}`}
+              className="btn atoyaButton"
+            ><i className="fas fa-file-pdf"></i>
+            </Button>
+          </Col>
+          <Col xs={1}>
+            <Button
+              id={`d${"aa"}`}
+              className="btn atoyaButton"
+            ><i className="fas fa-times-circle"></i>
+            </Button>
+          </Col>
+        </Row>
+      </Card>
+    );
     return ret;
   };
 
@@ -152,6 +195,16 @@ class Main extends Component {
     }
   };
 
+  editRedirect = (e) => {
+    e.preventDefault();
+    if(localStorage.getItem("token") != null){
+
+    } else {
+      console.log("NO HAY TOKEN VALIDO");
+      this.props.history.push("/");
+    }
+  }
+
   render() {
     return (
       <>
@@ -167,7 +220,7 @@ class Main extends Component {
             </Col>
           </Row>
           <div className="listaEducacion">
-            {this.state.formsJSX}
+            {this.renderForms()}
           </div>
             </Card.Body>
           </Card>

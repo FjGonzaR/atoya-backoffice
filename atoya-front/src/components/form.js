@@ -14,14 +14,26 @@ class Formulario extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePost = this.handlePost.bind(this);
+        this.handleEditMode = this.handleEditMode.bind(this);
         this.state = {
             fecha: new Date(),
             initialDate: new Date(),
             finalDate: new Date(),
             finalDisabled: true,
             materials: [],
-            revisions: ["Eléctrico", "Calibración", "Mecánico", "Capacitación", "Cambio Partes", "Limpieza", "Actualización", "Pruebas"]
+            revisions: ["Eléctrico", "Calibración", "Mecánico", "Capacitación", "Cambio Partes", "Limpieza", "Actualización", "Pruebas"],
+            action: "Crear"
         }
+        if(this.props.editmode){
+            this.handleEditMode();
+        }
+    }
+
+    handleEditMode = () => {
+        this.setState({
+            action: "Actualizar",
+            old: this.props.currentForm
+        });
     }
 
     handleInitialDateChange = (initialDate) => {
@@ -47,7 +59,7 @@ class Formulario extends Component {
     }
 
     handleSubmit = (e) => {
-        var data = { reference: document.getElementById("ref").value, description: document.getElementById("desc").value, units: document.getElementById("cant").value };
+        var data = { reference: document.getElementById("ref").value, description: document.getElementById("desc").value, units: document.getElementById("cant").value, sap_code: document.getElementById("sap").value };
         this.setState((prevState) => ({
             materials: [...prevState.materials, data]
         }));
@@ -67,10 +79,10 @@ class Formulario extends Component {
         envio["form"]["type"] = document.getElementById("tipo").value;
         envio["form"]["beginning_hour"] = this.state.initialDate.toString();
         envio["form"]["finishing_hour"] = this.state.finalDate.toString();
-        envio["form"]["vfn"] = document.getElementById("chk9").checked;
-        envio["form"]["vft"] = document.getElementById("chk10").checked;
-        envio["form"]["vnt"] = document.getElementById("chk11").checked;
-        envio["form"]["ups_dosing"] = document.getElementById("chk12").checked;
+        envio["form"]["vfn"] = document.getElementById("chk9").value;
+        envio["form"]["vft"] = document.getElementById("chk10").value;
+        envio["form"]["vnt"] = document.getElementById("chk11").value;
+        envio["form"]["ups_dosing"] = document.getElementById("chk12").value;
         envio["form"]["officer"] = document.getElementById("responsable").value;
         var revisions = "";
         for (let index = 1; index < 8; index++) {
@@ -128,7 +140,7 @@ class Formulario extends Component {
     botonForm = () => {
         return (
             <>
-                <tr className="text-center"><td key={"0"} colSpan="3" onClick={() => this.handleShow()}>Agregar</td></tr>
+                <tr className="text-center"><td key={"0"} colSpan="4" onClick={() => this.handleShow()}>Agregar</td></tr>
                 <Modal size="lg" show={this.state.show} onHide={this.handleClose} centered ref={this.wrapper}>
                     <Modal.Header closeButton>
                         <Modal.Title>Agregar Material/Repuesto</Modal.Title>
@@ -146,6 +158,10 @@ class Formulario extends Component {
                             <Form.Group controlId="cant">
                                 <Form.Label>Cantidad</Form.Label>
                                 <Form.Control type="number" />
+                            </Form.Group>
+                            <Form.Group controlId="sap">
+                                <Form.Label>Código SAP</Form.Label>
+                                <Form.Control />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
@@ -167,6 +183,7 @@ class Formulario extends Component {
                     <td>{element.reference}</td>
                     <td>{element.description}</td>
                     <td>{element.units}</td>
+                    <td>{element.sap_code}</td>
                 </tr>
             );
         }
@@ -314,6 +331,7 @@ class Formulario extends Component {
                                                         <th>Referencia</th>
                                                         <th>Descripción</th>
                                                         <th>Cantidad</th>
+                                                        <th>Código SAP</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -332,18 +350,38 @@ class Formulario extends Component {
                                 <Col>
                                     <Form className="text-center">
                                         <Form.Row>
-                                            <Form.Group as={Col} controlId="chk9">
-                                                <Form.Check inline type="switch" label="VFN" />
-                                            </Form.Group>
-                                            <Form.Group as={Col} controlId="chk10">
-                                                <Form.Check inline type="switch" label="VFT" />
-                                            </Form.Group>
-                                            <Form.Group as={Col} controlId="chk11">
-                                                <Form.Check inline type="switch" label="VNT" />
-                                            </Form.Group>
-                                            <Form.Group as={Col} controlId="chk12">
-                                                <Form.Check inline type="switch" label="Dosificador" />
-                                            </Form.Group>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={2}>VFN</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk9">
+                                                        <Form.Control inline type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={2}>VFT</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk10">
+                                                        <Form.Control inline type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={2}>VNT</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk11">
+                                                        <Form.Control inline type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={4}>Dosificador</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk12">
+                                                        <Form.Control inline type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
                                         </Form.Row>
                                     </Form>
                                 </Col>
@@ -438,8 +476,8 @@ class Formulario extends Component {
                             <Row>
                                 <Col className="text-center">
                                     <button className="btn atoyaButton" onClick={this.handlePost}>
-                                        Crear
-                        </button>
+                                        {this.state.action}
+                                    </button>
                                 </Col>
                             </Row>
                         </Card.Body>
