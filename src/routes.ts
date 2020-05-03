@@ -10,6 +10,7 @@ import {
 } from "./handler/FormHandler";
 import { checkToken } from "./utils/jwt";
 import { create } from "domain";
+import { createReminderHandler, updateReminderHandler, deleteReminderHandler } from "./handler/ReminderHandler";
 const router = express.Router();
 const wrapResponse = async (req, res, method) => {
   try {
@@ -67,6 +68,26 @@ router.get(
   async (req, res) =>
     await wrapResponse(req, null, downloadForm(req,res,getConnection()))
 );
+
+router.get(
+  Routes.CREATE_REMINDER,
+  checkToken,
+  async (req, res) =>
+    await wrapResponse(req, null, createReminderHandler(req,getConnection()))
+);
+
+router.put(
+  Routes.MODIFY_REMINDER,
+  checkToken,
+  async(req,res) => 
+    await wrapResponse(req,null, updateReminderHandler(req,getConnection()))
+);
+
+router.delete(
+  Routes.MODIFY_REMINDER,
+  async(req,res) => 
+  await wrapResponse(req,null, deleteReminderHandler(req,getConnection()))
+)
 
 router.get(
   Routes.DUMMY,
