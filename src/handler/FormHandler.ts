@@ -2,6 +2,7 @@ import {
   createForm,
   getFormDetailed,
   getFormSummary,
+  deleteForm,
 } from "../controller/FormController";
 import { Connection } from "typeorm";
 import { Client } from "../entity/Client";
@@ -21,13 +22,18 @@ export const createFormHandler = async (req, dbConn: Connection) => {
   const materials = req.body.materials;
   const client = req.body.client;
   const planningOrder = req.body.planning_order;
+  const formId = req.params.id;
   client.forms = [];
   const cliente = new Client();
   Object.assign(cliente, client);
-  await createForm(form, materials, planningOrder, cliente, dbConn);
-  return { message: "Form created successfully" };
+  await createForm(form, materials, planningOrder, cliente, dbConn, formId);
+  return { message: "Form created/updated successfully" };
 };
-
+export const deleteFormHandler = async (req, dbConn: Connection) => {
+  const formId = req.params.id;
+  await deleteForm(formId, dbConn);
+  return { message: "Form deleted successfully" };
+}
 export const sendFormToClientHandler = async (req, dbConn: Connection) => {
   const formId = req.params.id;
   const form = await getFormDetailed(formId, dbConn);

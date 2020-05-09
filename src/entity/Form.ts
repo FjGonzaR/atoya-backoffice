@@ -1,6 +1,5 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   OneToOne,
@@ -98,6 +97,7 @@ export class Form {
 
   @CreateDateColumn()
   created_at: Date;
+  
   @BeforeInsert()
   defineId() {
     this.id = `${this.created_at.getFullYear()}-${this.created_at.getMonth()+1}-${this.created_at.getDate()}/${this.client.enterprise}`;
