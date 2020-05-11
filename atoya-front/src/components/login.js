@@ -6,6 +6,7 @@ import Logo from "../Captura.PNG";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import sha256 from 'sha256';
 
 toast.configure();
 
@@ -16,10 +17,11 @@ class Login extends Component {
 
   validateLogin = (e) => {
     e.preventDefault();
+    const password =  sha256(e.target.elements.pw.value);
     axios
       .post("https://atoya-app.herokuapp.com/login", {
         email: e.target.elements.usr.value,
-        password: e.target.elements.pw.value,
+        password : password,
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
@@ -48,7 +50,6 @@ class Login extends Component {
     if(localStorage.getItem("token") != null){
       axios.get("https://atoya-app.herokuapp.com/", {headers:{'Content-Type': 'application/json','Authorization': localStorage.getItem("token")}})
         .then((res) =>{
-          console.log("activo");
           bool = false;
           this.props.history.push("/main");
         });

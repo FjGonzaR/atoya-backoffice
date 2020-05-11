@@ -8,6 +8,8 @@ import './styles/register.css';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
+import sha256 from 'sha256';
+
 
 class Register extends Component {
   state = {
@@ -24,10 +26,11 @@ class Register extends Component {
     }
     if (newmsg === "") {
       //crear usuario
+      const password = sha256(e.target.elements.pw.value);
       axios
       .post("https://atoya-app.herokuapp.com/signup", {
         email: e.target.elements.usr.value,
-        password: e.target.elements.pw.value,
+        password,
       },
       { headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem("token") } })
       .then((res) => {
