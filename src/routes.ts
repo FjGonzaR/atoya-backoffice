@@ -10,7 +10,7 @@ import {
 } from "./handler/FormHandler";
 import { checkToken } from "./utils/jwt";
 import { create } from "domain";
-import { createReminderHandler, updateReminderHandler, deleteReminderHandler } from "./handler/ReminderHandler";
+import { createReminderHandler, updateReminderHandler, deleteReminderHandler, getRemindersFormatted } from "./handler/ReminderHandler";
 const router = express.Router();
 const wrapResponse = async (req, res, method) => {
   try {
@@ -69,24 +69,29 @@ router.get(
     await wrapResponse(req, null, downloadForm(req,res,getConnection()))
 );
 
-router.get(
+router.post(
   Routes.CREATE_REMINDER,
   checkToken,
   async (req, res) =>
-    await wrapResponse(req, null, createReminderHandler(req,getConnection()))
+    await wrapResponse(req, res, createReminderHandler(req,getConnection()))
 );
 
 router.put(
   Routes.MODIFY_REMINDER,
   checkToken,
   async(req,res) => 
-    await wrapResponse(req,null, updateReminderHandler(req,getConnection()))
+    await wrapResponse(req,res, updateReminderHandler(req,getConnection()))
 );
 
 router.delete(
   Routes.MODIFY_REMINDER,
   async(req,res) => 
-  await wrapResponse(req,null, deleteReminderHandler(req,getConnection()))
+  await wrapResponse(req,res, deleteReminderHandler(req,getConnection()))
+)
+router.get(
+  Routes.ALL_REMINDERS,
+  async(req,res) => 
+  await wrapResponse(req,res,getRemindersFormatted(req,getConnection()))
 )
 
 router.get(
