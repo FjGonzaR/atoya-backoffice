@@ -7,6 +7,7 @@ import {
   sendFormToClientHandler,
   getForms,
   downloadForm,
+  deleteFormHandler,
 } from "./handler/FormHandler";
 import { checkToken } from "./utils/jwt";
 import { create } from "domain";
