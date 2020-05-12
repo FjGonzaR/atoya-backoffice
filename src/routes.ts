@@ -46,7 +46,7 @@ router.put(
 router.delete(
   Routes.MODIFY_FORM,
   async (req,res) => 
-    await wrapResponse(req,res, createFormHandler(req,getConnection()))
+    await wrapResponse(req,res, deleteFormHandler(req,getConnection()))
 );
 router.get(
   Routes.SEND_TO_CLIENT,
