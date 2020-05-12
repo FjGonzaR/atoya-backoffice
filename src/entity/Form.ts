@@ -89,7 +89,7 @@ export class Form {
   })
   revisions: string;
 
-  @OneToMany("Material", "form", { cascade: true })
+  @OneToMany("Material", "form", { cascade: true, onDelete: 'CASCADE' })
   materials: Material[];
 
   @ManyToOne((type) => Client, (client) => client.forms)
