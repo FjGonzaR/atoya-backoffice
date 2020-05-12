@@ -26,7 +26,7 @@ export const createForm = async (
   const today = new Date();
   form.id = `${today.getFullYear()}-${
     today.getMonth() + 1
-  }-${today.getDate()}/${form.client.enterprise}`;
+  }-${today.getDate()}-${form.client.enterprise}`;
   form.planningOrder = planningOrderArg;
   form = Object.assign(form, formArg);
   materials = createMaterials(materials, form);
