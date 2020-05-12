@@ -41,9 +41,9 @@ export class Form {
   pending_observations: string;
 
   @Column({
-    nullable : true
+    nullable: true,
   })
-  precedents : string;
+  precedents: string;
 
   @Column()
   type: string;
@@ -79,7 +79,7 @@ export class Form {
 
   @OneToOne((type) => PlanningOrder, (planningOrder) => planningOrder.form, {
     nullable: true,
-    cascade : true,
+    cascade: true,
   })
   @JoinColumn()
   planningOrder: PlanningOrder;
@@ -89,7 +89,7 @@ export class Form {
   })
   revisions: string;
 
-  @OneToMany('Material','form', { cascade: true })
+  @OneToMany("Material", "form", { cascade: true })
   materials: Material[];
 
   @ManyToOne((type) => Client, (client) => client.forms)
@@ -97,9 +97,4 @@ export class Form {
 
   @CreateDateColumn()
   created_at: Date;
-  
-  @BeforeInsert()
-  defineId() {
-    this.id = `${this.created_at.getFullYear()}-${this.created_at.getMonth()+1}-${this.created_at.getDate()}/${this.client.enterprise}`;
-  }
 }

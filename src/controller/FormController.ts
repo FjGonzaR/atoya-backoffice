@@ -23,6 +23,10 @@ export const createForm = async (
   const formu = await dbConn.manager.findOne(Form, formId) ;
   let form = formu? formu : new Form();
   form.client = client;
+  const today = new Date();
+  form.id = `${today.getFullYear()}-${
+    today.getMonth() + 1
+  }-${today.getDate()}/${form.client.enterprise}`;
   form.planningOrder = planningOrderArg;
   form = Object.assign(form, formArg);
   materials = createMaterials(materials, form);
