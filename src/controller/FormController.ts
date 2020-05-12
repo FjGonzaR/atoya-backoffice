@@ -50,7 +50,7 @@ export const deleteForm = async (formId: string, dbConn: Connection) => {
   await dbConn.createQueryBuilder()
   .delete()
   .from(Material)
-  .where("formId = :id", { id: formId })
+  .where("material.formId = :id", { id: formId })
   .execute();
   return await dbConn.getRepository(Form).delete(formId);
 };
