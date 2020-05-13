@@ -81,7 +81,6 @@ export class Form {
     nullable: true,
     cascade: true,
   })
-  @JoinColumn()
   planningOrder: PlanningOrder;
 
   @Column({

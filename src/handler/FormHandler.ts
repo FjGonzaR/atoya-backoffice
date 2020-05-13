@@ -59,9 +59,10 @@ export const sendFormToClientHandler = async (req, dbConn: Connection) => {
       ],
     })
       .then((value) => {
-        return;
+        console.log(value);
       })
       .catch((error) => {
+        console.log(error);
         throw error;
       });
   });

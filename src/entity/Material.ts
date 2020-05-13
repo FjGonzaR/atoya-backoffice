@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
 import { Form } from "./Form";
 
 @Entity()
@@ -18,6 +24,6 @@ export class Material {
   @Column({ default: 0, type: "int" })
   units: number;
 
-  @ManyToOne('Form', 'materials')
-  form : Form
+  @ManyToOne((type) => Form, (form) => form.materials, { onDelete: "CASCADE" })
+  form: Form;
 }
