@@ -4,6 +4,7 @@ import Formulario from "./components/form";
 import Login from "./components/login";
 import Main from "./components/main";
 import Register from "./components/register";
+import Reminders from "./components/reminders";
 import history from "./history";
 import Navbar from "./components/navbar";
 
@@ -17,10 +18,8 @@ export const makeMainRoutes = () => {
             <Navbar history={history} pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }/>
             <Switch id="page-wrap">
               <Route path="/form" render={(props) => <Formulario {...props} />} />
-              <Route
-                path="/register"
-                render={(props) => <Register {...props} />}
-              />
+              <Route path="/reminders" render={(props) => <Reminders {...props} />} />
+              <Route path="/register" render={(props) => <Register {...props} />} />
               <Route path="/main" render={(props) => <Main {...props} />} />
             </Switch>
             </div>

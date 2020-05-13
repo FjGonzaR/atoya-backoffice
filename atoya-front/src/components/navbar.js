@@ -13,7 +13,7 @@ export default class navbar extends Component {
         <a id="formularios" className="menu-item justify-content-between" href="/main">
         <i className="fas fa-align-left"></i> Formularios
         </a>
-        <a id="recordatorios" className="menu-item" href="/about">
+        <a id="recordatorios" className="menu-item" href="/reminders">
         <i className="fas fa-bell"></i> Recordatorios
         </a>
         <a id="usuarios" className="menu-item" href="/register">

@@ -1,0 +1,33 @@
+.colBotonCrear{
+    margin: 6px;
+}
+
+#remindersContainer{
+    background-color: #fcf7f7;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    padding: 60px;
+}
+
+#reminderListBody{
+    border-radius: 15px;
+    border: none;
+}
+
+.atoyaDrop{
+    color: #ffffff;
+    background-color: rgb(153, 0, 0);
+    border-color: #ffffff;
+}
+.atoyaDrop:hover{
+    background-color: #ffffff;
+    color : rgb(153, 0, 0);
+    border-color: rgb(153, 0, 0);
+}
+
+.atoyaDrop:active{
+    background-color: #ffffff !important; 
+    color : rgb(153, 0, 0) !important;
+    border-color: rgb(153, 0, 0) !important;
+}

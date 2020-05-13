@@ -45,6 +45,7 @@ class Register extends Component {
         });
       })
       .catch((err) => {
+        console.log(err);
         toast(`Credenciales inválidas. Intente de nuevo`, {
           containerId: "A",
           autoClose: 1000,

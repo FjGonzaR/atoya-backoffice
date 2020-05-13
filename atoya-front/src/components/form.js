@@ -14,7 +14,6 @@ class Formulario extends Component {
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePost = this.handlePost.bind(this);
-        this.handleEditMode = this.handleEditMode.bind(this);
         this.state = {
             fecha: new Date(),
             initialDate: new Date(),
@@ -24,16 +23,6 @@ class Formulario extends Component {
             revisions: ["Eléctrico", "Calibración", "Mecánico", "Capacitación", "Cambio Partes", "Limpieza", "Actualización", "Pruebas"],
             action: "Crear"
         }
-        if(this.props.editmode){
-            this.handleEditMode();
-        }
-    }
-
-    handleEditMode = () => {
-        this.setState({
-            action: "Actualizar",
-            old: this.props.currentForm
-        });
     }
 
     handleInitialDateChange = (initialDate) => {
@@ -121,6 +110,7 @@ class Formulario extends Component {
                     });
                 })
                 .catch(err => {
+                    console.log(err);
                     toast(`No se suministró correctamente la información. Intente de nuevo`, {
                         containerId: "A",
                         autoClose: 1000,
@@ -147,6 +137,10 @@ class Formulario extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.handleSubmit}>
+                            <Form.Group controlId="sap">
+                                <Form.Label>Código SAP</Form.Label>
+                                <Form.Control />
+                            </Form.Group>
                             <Form.Group controlId="ref">
                                 <Form.Label>Referencia</Form.Label>
                                 <Form.Control />
@@ -158,10 +152,6 @@ class Formulario extends Component {
                             <Form.Group controlId="cant">
                                 <Form.Label>Cantidad</Form.Label>
                                 <Form.Control type="number" />
-                            </Form.Group>
-                            <Form.Group controlId="sap">
-                                <Form.Label>Código SAP</Form.Label>
-                                <Form.Control />
                             </Form.Group>
                         </Form>
                     </Modal.Body>
@@ -179,20 +169,16 @@ class Formulario extends Component {
         for (let index = 0; index < this.state.materials.length; index++) {
             const element = this.state.materials[index];
             final.push(
-                <tr className="text-center">
+                <tr className="text-center" key={`row${index}`}>
+                    <td>{element.sap_code}</td>
                     <td>{element.reference}</td>
                     <td>{element.description}</td>
                     <td>{element.units}</td>
-                    <td>{element.sap_code}</td>
                 </tr>
             );
         }
         final.push(this.botonForm());
         return final;
-    }
-
-    handChan = (e) =>{
-        console.log(document.getElementById("tipo").value);    
     }
 
     render() {
@@ -232,10 +218,7 @@ class Formulario extends Component {
                                             </Form.Group>
                                             <Form.Group as={Col} controlId="tipo">
                                                 <Form.Label>Tipo</Form.Label>
-                                                <Form.Control as="select" onChange={this.handChan}>
-                                                    <option>Tintometría</option>
-                                                    <option>Empaques y embotellados</option>
-                                                </Form.Control>
+                                                <Form.Control required/>
                                             </Form.Group>
                                         </Form.Row>
                                         
@@ -280,7 +263,7 @@ class Formulario extends Component {
                             <Row>
                                 <Col>
                                     <Card>
-                                        <Card.Header>Revisiones y trabajos efectuados</Card.Header>
+                                        <Card.Header>Revisiones y trabajos a efectuar</Card.Header>
                                         <Card.Body>
                                             <Form className="text-center">
                                                 <Form.Row>
@@ -322,16 +305,58 @@ class Formulario extends Component {
                             <br />
                             <Row>
                                 <Col>
+                                    <Form className="text-center">
+                                        <Form.Row>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={2}>VFN</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk9">
+                                                        <Form.Control inline="true" type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={2}>VFT</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk10">
+                                                        <Form.Control inline="true" type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={2}>VNT</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk11">
+                                                        <Form.Control inline="true" type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                            <Col>
+                                                <Form.Row>
+                                                    <Form.Label column sm={4}>Dosificador</Form.Label>
+                                                    <Form.Group as={Col} controlId="chk12">
+                                                        <Form.Control inline="true" type="number" defaultValue={0} />
+                                                    </Form.Group>
+                                                </Form.Row>
+                                            </Col>
+                                        </Form.Row>
+                                    </Form>
+                                </Col>
+                            </Row>
+                            <br />
+                            <br />
+                            <Row>
+                                <Col>
                                     <Card>
                                         <Card.Header>Materiales y repuestos</Card.Header>
                                         <Card.Body>
                                             <Table striped bordered hover responsive size="sm">
                                                 <thead>
                                                     <tr>
+                                                        <th>Código SAP</th>
                                                         <th>Referencia</th>
                                                         <th>Descripción</th>
                                                         <th>Cantidad</th>
-                                                        <th>Código SAP</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -342,48 +367,6 @@ class Formulario extends Component {
                                             </Table>
                                         </Card.Body>
                                     </Card>
-                                </Col>
-                            </Row>
-                            <br />
-                            <br />
-                            <Row>
-                                <Col>
-                                    <Form className="text-center">
-                                        <Form.Row>
-                                            <Col>
-                                                <Form.Row>
-                                                    <Form.Label column sm={2}>VFN</Form.Label>
-                                                    <Form.Group as={Col} controlId="chk9">
-                                                        <Form.Control inline type="number" defaultValue={0} />
-                                                    </Form.Group>
-                                                </Form.Row>
-                                            </Col>
-                                            <Col>
-                                                <Form.Row>
-                                                    <Form.Label column sm={2}>VFT</Form.Label>
-                                                    <Form.Group as={Col} controlId="chk10">
-                                                        <Form.Control inline type="number" defaultValue={0} />
-                                                    </Form.Group>
-                                                </Form.Row>
-                                            </Col>
-                                            <Col>
-                                                <Form.Row>
-                                                    <Form.Label column sm={2}>VNT</Form.Label>
-                                                    <Form.Group as={Col} controlId="chk11">
-                                                        <Form.Control inline type="number" defaultValue={0} />
-                                                    </Form.Group>
-                                                </Form.Row>
-                                            </Col>
-                                            <Col>
-                                                <Form.Row>
-                                                    <Form.Label column sm={4}>Dosificador</Form.Label>
-                                                    <Form.Group as={Col} controlId="chk12">
-                                                        <Form.Control inline type="number" defaultValue={0} />
-                                                    </Form.Group>
-                                                </Form.Row>
-                                            </Col>
-                                        </Form.Row>
-                                    </Form>
                                 </Col>
                             </Row>
                             <br />
@@ -406,20 +389,26 @@ class Formulario extends Component {
                                 </Col>
                             </Row>
                             <br />
+                            <br/>
                             <Row>
                                 <Col>
                                     <Form>
                                         <Form.Group controlId="observaciones">
-                                            <Form.Label>Observaciones</Form.Label>
+                                            <Form.Label>Antecedentes y estado inicial</Form.Label>
                                             <Form.Control as="textarea" rows="3" />
                                         </Form.Group>
+                                        <br/>
+                                        <br/>
                                         <Form.Group controlId="pendientes">
-                                            <Form.Label>Pendientes</Form.Label>
+                                            <Form.Label>Observaciones y hallazgos</Form.Label>
                                             <Form.Control as="textarea" rows="3" />
                                         </Form.Group>
                                     </Form>
                                 </Col>
                             </Row>
+                            <br/>
+                            <br/>
+                            <label className="form-label">Planeación y Órdenes de servicio</label>
                             <Row>
                                 <Col>
                                     <Card className="h-100">
@@ -435,7 +424,7 @@ class Formulario extends Component {
                                 </Col>
                                 <Col>
                                     <Card className="h-100">
-                                        <Card.Header>Repuestos y herramientas necesarios para alistar</Card.Header>
+                                        <Card.Header>Repuestos y herramientas necesarios</Card.Header>
                                         <Card.Body>
                                             <Form>
                                                 <Form.Group controlId="rep">
@@ -459,13 +448,16 @@ class Formulario extends Component {
                                 </Col>
                             </Row>
                             <br />
+                            <br />
                             <Row>
                                 <Col>
                                     <Form>
                                         <Form.Group controlId="aditobs">
-                                            <Form.Label>Observaciones adicionales</Form.Label>
+                                            <Form.Label>Conclusiones y recomendaciones</Form.Label>
                                             <Form.Control as="textarea" rows="3" />
                                         </Form.Group>
+                                        <br />
+                                        <br />
                                         <Form.Group controlId="responsable">
                                             <Form.Label>Responsable</Form.Label>
                                             <Form.Control />
