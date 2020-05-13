@@ -47,7 +47,6 @@ export const getFormDetailed = async (formId: string, dbConn: Connection) => {
   });
 };
 export const deleteForm = async (formId: string, dbConn: Connection) => {
-  dbConn.getRepository(Material).createQueryBuilder().delete().where({ formId }).execute();
   return await dbConn.manager.getRepository(Form).delete(formId);
 };
 

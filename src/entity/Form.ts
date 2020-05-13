@@ -81,7 +81,6 @@ export class Form {
     nullable: true,
     cascade: true,
   })
-  @JoinColumn()
   planningOrder: PlanningOrder;
 
   @Column({
@@ -89,7 +88,7 @@ export class Form {
   })
   revisions: string;
 
-  @OneToMany("Material", "form", { cascade: true})
+  @OneToMany("Material", "form", { cascade: true })
   materials: Material[];
 
   @ManyToOne((type) => Client, (client) => client.forms)

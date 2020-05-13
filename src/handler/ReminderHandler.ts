@@ -13,8 +13,6 @@ export const createReminderHandler = async (req, dbConn: Connection) => {
   const reminder = new Reminder();
   Object.assign(reminder, reminderBody);
   reminder.due_date = new Date(reminderBody.due_date);
-  console.log(reminder.due_date.getTime());
-  console.log(Date.now());
   if (reminder.due_date.getTime() > Date.now()) {
     await createReminder(reminder, dbConn);
     return { msg: "Recordatorio creado con exito" };
