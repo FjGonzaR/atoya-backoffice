@@ -19,6 +19,7 @@
       "copyfiles": "^2.2.0",
       "cors": "^2.8.5",
       "express": "^4.15.4",
+      "googleapis": "^51.0.0",
       "html-pdf": "^2.2.0",
       "jsonwebtoken": "^8.5.1",
       "node": "10.16.1",
